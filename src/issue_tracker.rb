@@ -33,7 +33,7 @@ get '/' do
 		"Item updated!"
 	when 'item.delete'
 		puts "Item deleted"
-		"Item deleted!"
+		"${type}"
 	else
 		"Invalid hook verify."
 	end
