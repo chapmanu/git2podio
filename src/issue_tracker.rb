@@ -21,9 +21,12 @@ post '/' do
   	'hello noooo :('
   end
 
+  puts params.inspect
+  
   case params['type']
 	when 'hook.verify'
 		# Validate the webhook
+		puts "Hook verified!"
 		Podio::Hook.validate(params['hook_id'], params['code'])
 	when 'item.create'
 		puts "Item created!"
