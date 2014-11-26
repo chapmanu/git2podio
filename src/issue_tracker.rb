@@ -14,7 +14,7 @@ client = Octokit::Client.new \
 issue = Podio::Item.find_basic(195879868)
 puts issue[:app]
 
-get '/' do
+get '/issues.com/hook' do
   if issue
   	'hello world'
   else
