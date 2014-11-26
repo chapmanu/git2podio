@@ -26,15 +26,12 @@ get '/' do
 		# Validate the webhook
 		Podio::Hook.validate(params['hook_id'], params['code'])
 	when 'item.create'
-		puts "Item created!"
 		"Item created!"
 	when 'item.update'
-		puts "Item updated!"
 		"Item updated!"
 	when 'item.delete'
-		puts "Item deleted"
-		"${type}"
+		"Item deleted"
 	else
-		"Invalid hook verify."
+		"Invalid hook verify: ${type}"
 	end
 end
