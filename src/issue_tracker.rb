@@ -32,6 +32,6 @@ get '/' do
 	when 'item.delete'
 		"Item deleted"
 	else
-		"Invalid hook verify: ${type}"
+		"Invalid hook verify: #{type}"
 	end
 end
