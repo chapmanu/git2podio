@@ -14,7 +14,7 @@ client = Octokit::Client.new \
 issue = Podio::Item.find_basic(195879868)
 puts issue[:app]
 
-get '/issues.com/hook' do
+get '/' do
   if issue
   	'hello world'
   else
@@ -27,11 +27,14 @@ get '/issues.com/hook' do
 		Podio::Hook.validate(params['hook_id'], params['code'])
 	when 'item.create'
 		puts "Item created!"
+		"Item created!"
 	when 'item.update'
 		puts "Item updated!"
+		"Item updated!"
 	when 'item.delete'
-		puts "Item deleted!"
+		puts "Item deleted"
+		"Item deleted!"
 	else
-		puts "Invalid hook verify."
+		"Invalid hook verify."
 	end
 end
