@@ -1,2 +1,2 @@
-require './issue_tracker'
+require './src/issue_tracker'
 run Sinatra::Application
