@@ -21,7 +21,7 @@ post '/' do
   	puts 'hello noooo :('
   end
 
-  puts host.inspect
+  puts params.inspect
 
   case params['type']
 	when 'hook.verify'
