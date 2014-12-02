@@ -5,3 +5,4 @@ gem 'rspec', :require => 'spec'
 gem 'sinatra'
 gem 'podio'
 gem "octokit", "~> 3.0"
+gem 'pry-byebug'
