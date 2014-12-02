@@ -1,3 +1,4 @@
+require 'active_support'
 require 'sinatra'
 require 'podio'
 require 'octokit'
