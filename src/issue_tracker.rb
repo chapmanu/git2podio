@@ -15,7 +15,7 @@ client = Octokit::Client.new \
 issue = Podio::Item.find_basic(195879868)
 puts issue[:app]
 
-post '/' do
+#post '/' do
   if issue
   	puts 'hello world'
   else
@@ -24,7 +24,7 @@ post '/' do
 
   puts "Parameters: #{params.inspect}"
 
-  #case params['type']
+  case params['type']
 	when 'hook.verify'
 		# Validate the webhook
 		puts "Hook verified!"
