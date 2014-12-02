@@ -6,9 +6,6 @@ require 'octokit'
 Podio.setup(:api_key => 'issues', :api_secret => 'QnVQnkCQkCBBsYiVWcdVpuQS3TlvYaDfc3xacXj9n2bNvULAYCOg4MM9TOV5LGaq')
 Podio.client.authenticate_with_app('9343326', '8a6c2571599e470d8dbaae867a70ce94')
 
-Podio.debug = true
-puts "debug worked"
-
 #github login
 client = Octokit::Client.new \
 	:login    => 'CharlesChapman',
