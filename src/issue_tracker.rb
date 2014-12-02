@@ -6,6 +6,9 @@ require 'octokit'
 Podio.setup(:api_key => 'issues', :api_secret => 'QnVQnkCQkCBBsYiVWcdVpuQS3TlvYaDfc3xacXj9n2bNvULAYCOg4MM9TOV5LGaq')
 Podio.client.authenticate_with_app('9343326', '8a6c2571599e470d8dbaae867a70ce94')
 
+Podio.debug = true
+puts "debug worked"
+
 #github login
 client = Octokit::Client.new \
 	:login    => 'CharlesChapman',
@@ -14,14 +17,14 @@ client = Octokit::Client.new \
 issue = Podio::Item.find_basic(195879868)
 puts issue[:app]
 
-post '/' do
+#post '/' do
   if issue
   	puts 'hello world'
   else
   	puts 'hello noooo :('
   end
 
-  puts params.inspect
+  puts "Parameters: #{params.inspect}"
 
   case params['type']
 	when 'hook.verify'
@@ -37,4 +40,4 @@ post '/' do
 	else
 		puts "Invalid hook verify: #{params.inspect}"
 	end
-end
+#end
