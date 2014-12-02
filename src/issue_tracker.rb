@@ -15,12 +15,13 @@ client = Octokit::Client.new \
 issue = Podio::Item.find_basic(195879868)
 puts issue[:app]
 
-#post '/' do
-  if issue
+if issue
   	puts 'hello world'
   else
   	puts 'hello noooo :('
-  end
+end
+
+post '/' do
 
   puts "Parameters: #{params.inspect}"
 
@@ -38,4 +39,4 @@ puts issue[:app]
 	else
 		puts "Invalid hook verify: #{params.inspect}"
 	end
-#end
+end
