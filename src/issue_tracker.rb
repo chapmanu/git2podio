@@ -16,13 +16,13 @@ puts issue[:app]
 
 post '/' do
   if issue
-  	'hello world'
+  	puts 'hello world'
   else
-  	'hello noooo :('
+  	puts 'hello noooo :('
   end
 
   puts params.inspect
-  
+
   case params['type']
 	when 'hook.verify'
 		# Validate the webhook
