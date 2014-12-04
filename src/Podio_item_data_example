@@ -1,0 +1,465 @@
+#<Podio::Item:0x007f9406b98a38 @attributes={
+	:item_id=>223826498, 
+	:revision=>0, 
+	:app=>{
+		"status"=>"active", 
+		"name"=>"Issues", 
+		"default_view_id"=>nil, 
+		"url_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/issues/items/new", 
+		"icon_id"=>42, 
+		"link_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/issues/items/new", 
+		"app_id"=>9343326, 
+		"current_revision"=>9, 
+		"item_name"=>"Issues", 
+		"link"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/issues", 
+		"url"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/issues", 
+		"url_label"=>"issues", 
+		"config"=>{
+			"item_name"=>"Issues", 
+			"icon_id"=>42, 
+			"type"=>"standard", 
+			"name"=>"Issues", 
+			"icon"=>"42.png"
+		}, 
+		"space_id"=>2621765, 
+		"icon"=>"42.png"
+	}, 
+	:app_item_id=>13, 
+	:app_item_id_formatted=>"13", 
+	:external_id=>nil, 
+	:title=>"test 2", 
+	:fields=>[{
+		"status"=>"active", 
+		"type"=>"text", 
+		"field_id"=>72675682, 
+		"label"=>"Issue", 
+		"values"=>[{"value"=>"test 2"}], 
+		"config"=>{
+			"default_value"=>nil, 
+			"description"=>nil, 
+			"settings"=>{
+				"format"=>"plain", 
+				"size"=>"small"
+			}, 
+			"required"=>true, 
+			"mapping"=>nil, 
+			"label"=>"Issue", 
+			"visible"=>true, 
+			"delta"=>0, 
+			"hidden"=>false, 
+			"unique"=>false
+		}, 
+		"external_id"=>"title"
+	}, 
+	{
+		"status"=>"active", 
+		"type"=>"text", 
+		"field_id"=>72676401, 
+		"label"=>"Description", 
+		"values"=>[{"value"=>"<p>The quick brown fox jumped over the lazy dog</p>"}], 
+		"config"=>{
+			"default_value"=>nil, 
+			"description"=>nil, 
+			"settings"=>{
+				"format"=>"html", 
+				"size"=>"large"
+			}, 
+			"required"=>false, 
+			"mapping"=>nil, 
+			"label"=>"Description", 
+			"visible"=>true, 
+			"delta"=>2, 
+			"hidden"=>false, 
+			"unique"=>false
+		}, 
+		"external_id"=>"description"
+	}, 
+	{
+		"status"=>"active", 
+		"type"=>"category", 
+		"field_id"=>72676409, 
+		"label"=>"Status", 
+		"values"=>[{
+			"value"=>{
+				"status"=>"active", 
+				"text"=>"Backlog", 
+				"id"=>2, 
+				"color"=>"F7F0C5"
+			}
+		}], 
+		"config"=>{
+			"default_value"=>nil, 
+			"description"=>nil, 
+			"settings"=>{
+				"multiple"=>false, 
+				"options"=>[{
+					"status"=>"deleted", 
+					"text"=>"Someday", 
+					"id"=>1, 
+					"color"=>"FFD5C2"
+				}, 
+				{
+					"status"=>"active", 
+					"text"=>"Backlog", 
+					"id"=>2, 
+					"color"=>"F7F0C5"
+				}, 
+				{
+					"status"=>"active", 
+					"text"=>"Current", 
+					"id"=>3, 
+					"color"=>"DCEBD8"
+				}, 
+				{
+					"status"=>"deleted", 
+					"text"=>"Complete", 
+					"id"=>4, 
+					"color"=>"DDDDDD"
+				}, 
+				{
+					"status"=>"deleted", 
+					"text"=>"in-progress", 
+					"id"=>5, 
+					"color"=>"DCEBD8"
+				}, 
+				{
+					"status"=>"active", 
+					"text"=>"Complete", 
+					"id"=>6, 
+					"color"=>"DDDDDD"
+				}], 
+				"display"=>"dropdown"
+			}, 
+			"required"=>true, 
+			"mapping"=>nil, 
+			"label"=>"Status", 
+			"visible"=>true, 
+			"delta"=>8, 
+			"hidden"=>false, 
+			"unique"=>false
+		}, 
+		"external_id"=>"category"
+	}, 
+	{
+		"status"=>"active", 
+		"type"=>"app", 
+		"field_id"=>72676406, 
+		"label"=>"Project", 
+		"values"=>[{
+			"value"=>{
+				"files"=>[], 
+				"space"=>{
+					"name"=>"Web and Interactive Marketing", 
+					"url"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media", 
+					"url_label"=>"web-and-interactive-media", 
+					"space_id"=>2621765, 
+					"org_id"=>547729, 
+					"type"=>"regular"
+				}, 
+				"app_item_id"=>3, 
+				"app"=>{
+					"status"=>"active", 
+					"name"=>"Projects", 
+					"default_view_id"=>8724904, 
+					"url_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects/items/new", "icon_id"=>320, 
+					"link_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects/items/new", "app_id"=>9337308, 
+					"current_revision"=>19, 
+					"item_name"=>"Projects", 
+					"link"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects", 
+					"url"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects", "url_label"=>"projects", 
+					"config"=>{
+						"item_name"=>"Projects", 
+						"icon_id"=>320, 
+						"type"=>"standard", 
+						"name"=>"Projects", 
+						"icon"=>"320.png"
+					}, 
+					"space_id"=>2621765, 
+					"icon"=>"320.png"
+				}, 
+				"title"=>"Social.Chapman", 
+				"initial_revision"=>{
+					"item_revision_id"=>370452525, 
+					"created_via"=>{
+						"url"=>nil, 
+						"auth_client_id"=>1, 
+						"display"=>false, 
+						"name"=>"Podio", 
+						"id"=>1
+					}, 
+					"created_by"=>{
+						"user_id"=>1947321, 
+						"name"=>"Meghan Farrington", 
+						"url"=>"https://podio.com/users/1947321", 
+						"type"=>"user", 
+						"image"=>{
+							"hosted_by"=>"podio", 
+							"hosted_by_humanized_name"=>"Podio", 
+							"thumbnail_link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+							"link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+							"file_id"=>80090249, 
+							"link_target"=>"_blank"
+						}, 
+						"avatar_type"=>"file", 
+						"avatar"=>80090249, 
+						"id"=>1947321, 
+						"avatar_id"=>80090249, 
+						"last_seen_on"=>"2014-12-02 19:28:30"
+					}, 
+					"created_on"=>"2014-09-12 06:24:31", 
+					"user"=>{
+						"user_id"=>1947321, 
+						"name"=>"Meghan Farrington", 
+						"url"=>"https://podio.com/users/1947321", 
+						"type"=>"user", 
+						"image"=>{
+							"hosted_by"=>"podio", 
+							"hosted_by_humanized_name"=>"Podio", 
+							"thumbnail_link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+							"link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+							"file_id"=>80090249, 
+							"link_target"=>"_blank"
+						}, 
+						"avatar_type"=>"file", 
+						"avatar"=>80090249, 
+						"id"=>1947321, 
+						"avatar_id"=>80090249, 
+						"last_seen_on"=>"2014-12-02 19:28:30"
+					}, 
+					"type"=>"creation", 
+					"revision"=>0
+				}, 
+				"created_via"=>{
+					"url"=>nil, 
+					"auth_client_id"=>1, 
+					"display"=>false, 
+					"name"=>"Podio", 
+					"id"=>1
+				}, 
+				"created_by"=>{
+					"user_id"=>1947321, 
+					"name"=>"Meghan Farrington", 
+					"url"=>"https://podio.com/users/1947321", 
+					"type"=>"user", 
+					"image"=>{
+						"hosted_by"=>"podio", 
+						"hosted_by_humanized_name"=>"Podio", 
+						"thumbnail_link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+						"link"=>"https://d2cmuesa4snpwn.cloudfront.net/public/80090249", 
+						"file_id"=>80090249, 
+						"link_target"=>"_blank"
+					}, 
+					"avatar_type"=>"file", 
+					"avatar"=>80090249, 
+					"id"=>1947321, 
+					"avatar_id"=>80090249, 
+					"last_seen_on"=>"2014-12-02 19:28:30"
+				}, 
+				"created_on"=>"2014-09-12 06:24:31", 
+				"link"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects/items/3", "item_id"=>195925328, 
+				"revision"=>1
+			}
+		}], 
+		"config"=>{
+			"default_value"=>nil, 
+			"description"=>nil, 
+			"settings"=>{
+				"apps"=>[{
+					"status"=>"active", 
+					"name"=>"Projects", 
+					"rights"=>["add_task", "view_structure", "view", "add_item", "subscribe", "add_hook"], "default_view_id"=>8724904, 
+					"url_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects/items/new", "icon_id"=>320, 
+					"space"=>{
+						"name"=>"Web and Interactive Marketing", 
+						"url"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media", 
+						"url_label"=>"web-and-interactive-media", 
+						"space_id"=>2621765, 
+						"org_id"=>547729, 
+						"type"=>"regular"
+					}, 
+					"link_add"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects/items/new", "app_id"=>9337308, 
+					"current_revision"=>19, 
+					"item_name"=>"Projects", 
+					"link"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects", "url"=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/projects", 
+					"url_label"=>"projects", 
+					"config"=>{
+						"item_name"=>"Projects", 
+						"icon_id"=>320, 
+						"type"=>"standard", 
+						"name"=>"Projects", 
+						"icon"=>"320.png"
+					}, 
+					"space_id"=>2621765, 
+					"icon"=>"320.png"
+				}], 
+				"referenceable_types"=>[9337308]
+			}, 
+			"required"=>false,
+			"mapping"=>nil, 
+			"label"=>"Project",
+			"visible"=>true, 
+			"delta"=>9, 
+			"hidden"=>true, 
+			"unique"=>false
+		}, 
+		"external_id"=>"project"
+	}], 
+	:rights=>["rate", "comment", "add_task", "subscribe", "add_conversation", "add_file", "view", "update"], :created_on=>"2014-12-04 17:13:04", 
+	:ratings=>nil, 
+	:conversations=>nil, 
+	:tasks=>nil, 
+	:references=>nil, 
+	:refs=>nil, 
+	:tags=>["social dot chapman"], 
+	:subscribed=>nil, 
+	:pinned=>false, 
+	:user_ratings=>nil, 
+	:link=>"https://podio.com/myorg-gfp97dxwpr/web-and-interactive-media/apps/issues/items/13", 
+	:invite=>nil, 
+	:participants=>{}, 
+	:linked_account_id=>nil, 
+	:ref=>nil, 
+	:priority=>223826498.0, 
+	:excerpt=>nil, 
+	:is_liked=>nil, 
+	:like_count=>nil, 
+	:push=>{
+		"timestamp"=>1417713185, 
+		"expires_in"=>21600, 
+		"channel"=>"/item/223826498", 
+		"signature"=>"1f342af153aeec9c11ced0112faaf5a29b76a4ac"
+	}, 
+	:presence=>nil, 
+	:comment_count=>nil, 
+	:task_count=>nil, 
+	:subscribed_count=>1, 
+	:file_ids=>nil, 
+	:last_event_on=>"2014-12-04 17:13:04", 
+	:linked_account_data=>nil, 
+	:recurrence=>nil, 
+	:created_by=>{
+		:type=>"user", 
+		:id=>2584271, 
+		:avatar_type=>"file", 
+		:avatar_id=>nil, 
+		:image=>nil, 
+		:name=>"Matt Congel", 
+		:url=>"https://podio.com/users/2584271", 
+		:avatar=>nil, 
+		:last_seen_on=>"2014-12-04 17:11:33", 
+		:user_id=>2584271
+	}, 
+	:created_via=>{
+		:id=>1, 
+		:name=>"Podio", 
+		:url=>nil, 
+		:display=>false, 
+		:auth_client_id=>1
+	}, 
+	:reminder=>nil, 
+	:initial_revision=>{
+		"item_revision_id"=>431573973, 
+		"created_via"=>{
+			"url"=>nil, 
+			"auth_client_id"=>1, 
+			"display"=>false, 
+			"name"=>"Podio", 
+			"id"=>1
+		}, 
+		"created_by"=>{
+			"user_id"=>2584271, 
+			"name"=>"Matt Congel", 
+			"url"=>"https://podio.com/users/2584271", 
+			"type"=>"user", 
+			"image"=>nil, 
+			"avatar_type"=>"file", 
+			"avatar"=>nil, 
+			"id"=>2584271, 
+			"avatar_id"=>nil, 
+			"last_seen_on"=>"2014-12-04 17:11:33"
+		}, 
+		"created_on"=>"2014-12-04 17:13:04", 
+		"user"=>{
+			"user_id"=>2584271, 
+			"name"=>"Matt Congel", 
+			"url"=>"https://podio.com/users/2584271", 
+			"type"=>"user", 
+			"image"=>nil, 
+			"avatar_type"=>"file", 
+			"avatar"=>nil, 
+			"id"=>2584271, 
+			"avatar_id"=>nil, 
+			"last_seen_on"=>"2014-12-04 17:11:33"
+		}, 
+		"type"=>"creation", 
+		"revision"=>0
+	}, 
+	:current_revision=>{
+		"item_revision_id"=>431573973, 
+		"created_via"=>{
+			"url"=>nil, 
+			"auth_client_id"=>1, 
+			"display"=>false, 
+			"name"=>"Podio", 
+			"id"=>1
+		}, 
+		"created_by"=>{
+			"user_id"=>2584271, 
+			"name"=>"Matt Congel", 
+			"url"=>"https://podio.com/users/2584271", 
+			"type"=>"user", 
+			"image"=>nil, 
+			"avatar_type"=>"file", 
+			"avatar"=>nil, 
+			"id"=>2584271, 
+			"avatar_id"=>nil, 
+			"last_seen_on"=>"2014-12-04 17:11:33"
+		}, 
+		"created_on"=>"2014-12-04 17:13:04", 
+		"user"=>{
+			"user_id"=>2584271, 
+			"name"=>"Matt Congel", 
+			"url"=>"https://podio.com/users/2584271", 
+			"type"=>"user", 
+			"image"=>nil, 
+			"avatar_type"=>"file", 
+			"avatar"=>nil, 
+			"id"=>2584271, 
+			"avatar_id"=>nil, 
+			"last_seen_on"=>"2014-12-04 17:11:33"
+		}, 
+		"type"=>"creation", 
+		"revision"=>0
+	}
+}, 
+@values_from_api=false, 
+@created_by_has_one_instance=#<Podio::ByLine:0x007f9406ba4680 @attributes={
+	:type=>"user", 
+	:id=>2584271, 
+	:avatar_type=>"file", 
+	:avatar_id=>nil, 
+	:image=>nil, 
+	:name=>"Matt Congel", 
+	:url=>"https://podio.com/users/2584271", 
+	:avatar=>nil, 
+	:last_seen_on=>"2014-12-04 17:11:33", 
+	:user_id=>2584271
+}, 
+@values_from_api=false, 
+@belongs_to={
+	:model=>#<Podio::Item:0x007f9406b98a38 ...>, 
+	:as=>:created_by
+}>, 
+@created_via_has_one_instance=#<Podio::Via:0x007f9406bb09f8 @attributes={
+	:id=>1, 
+	:name=>"Podio", 
+	:url=>nil, 
+	:display=>false, 
+	:auth_client_id=>1
+}, 
+@values_from_api=false, 
+@belongs_to 2014-12-04T17:13:05.875246+00:00 app[web.1]: ={
+	:model=>#<Podio::Item:0x007f9406b98a38 ...>, 
+	:as=>:created_via
+}>, 
+@belongs_to=nil>54.72.211.162
