@@ -27,8 +27,10 @@ post '/' do
 		puts "Item created!"
 		issue = Podio::Item.find_basic(params['item_id'])
 
-		puts issue.attributes[:title]
-		puts issue.attributes[:fields][1]["values"][0]["value"]
+		puts "Title:"
+		puts issue.attributes[:title].inspect
+		puts "Description:"
+		puts issue.attributes[:fields][1]["values"][0]["value"].inspect
 		#figure out sending podio info to github through project name.
 		#Octokit.create_issue("chapmanu/git2podio", issue.attributes[:title], 'Added some extra links')
 	when 'item.update'
