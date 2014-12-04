@@ -12,8 +12,6 @@ post '/' do
 
   #github login
   client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
-  user = client.user
-  user.login
 
   puts "Parameters: #{params.inspect}"
 
@@ -27,8 +25,11 @@ post '/' do
 		puts "Item created!"
 		issue = Podio::Item.find_basic(params['item_id'])
 
+		puts "Description:"
+		puts issue.attributes[:fields][1]["values"][0]["value"][3..-5]
+
 		#figure out sending podio info to github through project name.
-		client.create_issue("chapmanu/git2podio", issue.attributes[:title], issue.attributes[:fields][1]["values"][0]["value"][3..-5])
+		#client.create_issue("chapmanu/git2podio", issue.attributes[:title], issue.attributes[:fields][1]["values"][0]["value"][3..-5])
 	when 'item.update'
 		puts "Item updated!"
 
