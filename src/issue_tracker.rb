@@ -31,16 +31,16 @@ post '/' do
 		#determine which repo to send issue to
 		repo = issue.attributes[:fields][3]["values"][0]["value"]["title"]
 		case repo
-			when "Social", "Inside", "Events"
+			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
-			when "Blogs"
+			when 'Blogs'
 				repo = "chapmanu/cu-wp-template"
-			when "Homepage"
+			when 'Homepage'
 				repo = "chapmanu/web-components"
 			else
 				puts "Invalid Podio issue made: #{title}."
 				repo = "chapmanu/git2podio"
-		end
+			end
 
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' || issue.attributes[:tags].include? 'Bug'
