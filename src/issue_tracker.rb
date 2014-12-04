@@ -11,7 +11,8 @@ post '/' do
   Podio.client.authenticate_with_app('9343326', '8a6c2571599e470d8dbaae867a70ce94')
 
   #github login
-  client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
+  #client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
+  client = Octokit::Client.new :login => 'homeofmatt', :password => 'mrcinocca2011'
 
   case params['type']
 	when 'hook.verify'
