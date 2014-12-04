@@ -78,7 +78,7 @@ PLATFORMS
 
 DEPENDENCIES
   nokogiri
-  octokit (~> 3.0)
+  octokit
   podio
   pry-byebug
   rack (~> 1.1)
