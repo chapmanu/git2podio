@@ -28,7 +28,7 @@ post '/' do
 		issue = Podio::Item.find_basic(params['item_id'])
 
 		#figure out sending podio info to github through project name.
-		Octokit.create_issue("chapmanu/git2podio", issue.attributes[:title], issue.attributes[:fields][1]["values"][0]["value"].gsub(%r{</?[^>]+?>}, ''))
+		client.create_issue("chapmanu/git2podio", issue.attributes[:title], issue.attributes[:fields][1]["values"][0]["value"].gsub(%r{</?[^>]+?>}, ''))
 	when 'item.update'
 		puts "Item updated!"
 
