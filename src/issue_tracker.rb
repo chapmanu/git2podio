@@ -24,7 +24,7 @@ post '/' do
 		issue = Podio::Item.find_basic(params['item_id'])
 
 		title = issue.attributes[:title]
-		desc = issue.attributes[:fields][1]["values"][0]["value"][3..-5]
+		desc = issue.attributes[:fields][1]["values"][0]["value"][3..-5].join("")
 
 		#figure out sending podio info to github through project name.
 		client.create_issue("chapmanu/git2podio", title, desc)
