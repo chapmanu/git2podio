@@ -25,7 +25,7 @@ post '/' do
 		puts "Item created!"
 		issue = Podio::Item.find_basic(params['item_id'])
 
-		puts "Description:"
+		#puts "Description:"
 		puts issue.attributes[:fields][1]["values"][0]["value"][3..-5]
 
 		#figure out sending podio info to github through project name.
