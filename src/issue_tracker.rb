@@ -27,7 +27,7 @@ post '/' do
 		#desc = issue.attributes[:fields][1]["values"][0]["value"][3..-5].to_s
 
 		#figure out sending podio info to github through project name.
-		binding.pry
+		#binding.pry
 		#client.create_issue("chapmanu/git2podio", title, desc)
 		client.create_issue("chapmanu/git2podio", 'test test', 'the quick brown fox')
 
