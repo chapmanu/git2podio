@@ -61,7 +61,7 @@ post '/' do
 		puts "Item updated!"
 
 		issue = Podio::Item.find_basic(params['item_id'])
-		pusts issue.inspect
+		puts params.inspect
 
 	when 'item.delete'
 		puts "Item deleted"
