@@ -24,12 +24,13 @@ post '/' do
 		issue = Podio::Item.find_basic(params['item_id'])
 		puts issue.inspect
 
+		#TITLE, ISSUE NUMBER, DESCRIPTON, 
 		#title and description for issue
 		title = issue.attributes[:title]
-		desc = issue.attributes[:fields][1]["values"][0]["value"][3..-5]
+		desc = issue.attributes[:fields][2]["values"][0]["value"][3..-5]
 
 		#determine which repo to send issue to
-		repo = issue.attributes[:fields][3]["values"][0]["value"]["title"]
+		repo = issue.attributes[:fields][4]["values"][0]["value"]["title"]
 		case repo
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
@@ -45,13 +46,12 @@ post '/' do
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
 			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
-			issue_num = git_issue[:number].to_i
-			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		else
 			git_issue = client.create_issue(repo, title, desc)
-			issue_num = git_issue[:number].to_i
-			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		end
+
+		issue_num = git_issue[:number].to_i
+		Podio::Item.update(issue.attributes[:item_id], {:fields => {"fields"[1]["values"][0]["value"] => issue_num}})
 
 	when 'item.update'
 		puts "Item updated!"
