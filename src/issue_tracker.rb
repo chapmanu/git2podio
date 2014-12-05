@@ -22,7 +22,7 @@ post '/' do
 	when 'item.create'
 		#grab basic info for new podio issue
 		issue = Podio::Item.find_basic(params['item_id'])
-		puts issue.inspect
+		#puts issue.inspect
 
 		#title and description for issue
 		title = issue.attributes[:title]
@@ -30,6 +30,8 @@ post '/' do
 
 		#determine which repo to send issue to
 		repo = issue.attributes[:fields][3]["values"][0]["value"]["title"]
+		puts "Repo title: "
+		puts repo
 		case repo
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
@@ -44,9 +46,9 @@ post '/' do
 
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
-			client.create_issue(repo, title, desc, {:labels => ["bug"]})
+			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
 		else
-			client.create_issue(repo, title, desc)
+			git_issue = client.create_issue(repo, title, desc)
 		end
 
 	when 'item.update'
