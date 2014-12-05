@@ -22,7 +22,6 @@ post '/' do
 	when 'item.create'
 		#grab basic info for new podio issue
 		issue = Podio::Item.find_basic(params['item_id'])
-		puts issue.inspect
 
 		#TITLE, DESCRIPTON, ETC WILL BE REQUIRED
 		#SAVE THE GITHUB NUMBER TO SOME RANDOM VARIABLE INCLUDED IN PODIO'S CRAP
