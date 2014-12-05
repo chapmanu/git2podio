@@ -64,7 +64,8 @@ post '/' do
 		puts issue.attributes[:fields][1]["field_id"]
 		item_id = params['item_id']
 		field_id = issue.attributes[:fields][1]["field_id"]
-		puts Podio.connection.get("/item/#{item_id}/value/#{field_id}").body.inspect
+		#puts Podio.connection.get("/item/#{item_id}/value/#{field_id}").body.inspect
+		Podio::ItemField.update(item_id, field_id, 30, {hook = false})
 
 	when 'item.delete'
 		puts "Item deleted"
