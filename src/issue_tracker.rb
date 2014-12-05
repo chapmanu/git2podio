@@ -44,8 +44,6 @@ post '/' do
 				repo = "chapmanu/git2podio"
 			end
 
-		puts Podio::ItemField.find_values(issue.attributes[:item_id], issue.attributes[:fields][1]["field_id"])
-
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
 			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
