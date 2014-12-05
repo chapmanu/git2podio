@@ -24,7 +24,9 @@ post '/' do
 		issue = Podio::Item.find_basic(params['item_id'])
 		puts issue.inspect
 
-		#TITLE, ISSUE NUMBER, DESCRIPTON, 
+		#TITLE, DESCRIPTON, ETC WILL BE REQUIRED
+		#SAVE THE GITHUB NUMBER TO SOME RANDOM VARIABLE INCLUDED IN PODIO'S CRAP
+
 		#title and description for issue
 		title = issue.attributes[:title]
 		desc = issue.attributes[:fields][2]["values"][0]["value"][3..-5]
@@ -43,15 +45,18 @@ post '/' do
 				repo = "chapmanu/git2podio"
 			end
 
+		puts Podio::ItemField.find_values(issue.attributes[:item_id], issue.attributes[:fields][1]["field_id"])
+
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
 			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+			issue_num = git_issue[:number].to_i
+			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		else
 			git_issue = client.create_issue(repo, title, desc)
+			issue_num = git_issue[:number].to_i
+			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		end
-
-		issue_num = git_issue[:number].to_i
-		Podio::Item.update(issue.attributes[:item_id], {:fields => {"fields"[1]["values"][0]["value"] => issue_num}})
 
 	when 'item.update'
 		puts "Item updated!"
