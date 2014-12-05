@@ -62,7 +62,9 @@ post '/' do
 
 		issue = Podio::Item.find_basic(params['item_id'])
 		puts issue.attributes[:fields][1]["field_id"]
-		puts Podio::ItemField.find_values(params['item_id'], issue.attributes[:fields][1]["field_id"]).inspect
+		item_id = params['item_id']
+		field_id = issue.attributes[:fields][1]["field_id"]
+		puts Podio.connection.get("/item/#{item_id}/value/#{field_id}").body.inspect
 
 	when 'item.delete'
 		puts "Item deleted"
