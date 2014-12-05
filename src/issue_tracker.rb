@@ -53,8 +53,8 @@ post '/' do
 			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		else
 			git_issue = client.create_issue(repo, title, desc)
-			issue_num = git_issue[:number].to_i
-			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
+			issue_num = git_issue[:number].to_s
+			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => issue_num}, {:hook => false})
 		end
 
 	when 'item.update'
