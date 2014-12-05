@@ -44,7 +44,7 @@ post '/' do
 
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
-			client.create_issue(repo, title, desc, {:labels => [bug]})
+			client.create_issue(repo, title, desc, {:labels => ["bug"]})
 		else
 			client.create_issue(repo, title, desc)
 		end
