@@ -30,8 +30,6 @@ post '/' do
 
 		#determine which repo to send issue to
 		repo = issue.attributes[:fields][3]["values"][0]["value"]["title"]
-		puts "Repo title: "
-		puts repo
 		case repo
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
@@ -47,8 +45,12 @@ post '/' do
 		#determine if issue is bug or not
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
 			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+			issue_num = git_issue[:number].to_i
+			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		else
 			git_issue = client.create_issue(repo, title, desc)
+			issue_num = git_issue[:number].to_i
+			Podio::Item.update(issue.attributes[:item_id], {:app_item_id => issue_num})
 		end
 
 	when 'item.update'
