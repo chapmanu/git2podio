@@ -55,9 +55,9 @@ post '/' do
 	when 'item.update'
 		puts "Item updated!"
 
-		puts issue.attributes[:fields]
 		issue = Podio::Item.find_basic(params['item_id'])
-		puts issue.attributes[:fields][1]["field_id"]
+		puts issue.attributes[:fields]
+
 		item_id = params['item_id']
 		field_id = issue.attributes[:fields][1]["field_id"]
 		#puts Podio.connection.get("/item/#{item_id}/value/#{field_id}").body.inspect
