@@ -22,13 +22,14 @@ post '/' do
 	when 'item.create'
 		#grab basic info for new podio issue
 		issue = Podio::Item.find_basic(params['item_id'])
+		puts issue.attributes[:fields]
 
 		#title and description for issue
 		title = issue.attributes[:title]
 		desc = issue.attributes[:fields][2]["values"][0]["value"][3..-5]
 
 		#determine which repo to send issue to
-		repo = issue.attributes[:fields][4]["values"][0]["value"]["title"]
+		repo = issue.attributes[:fields][3]["values"][0]["value"]["title"]
 		case repo
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
@@ -41,15 +42,29 @@ post '/' do
 				repo = "chapmanu/git2podio"
 			end
 
+		#create issue in github and give it correct tag
+		git_issue = nil
+		category = issue.attributes[:fields][4]["values"][0]["value"]["text"]
+		case category
+			when 'Bug'
+				git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+			when 'Enhancement'
+				git_issue = client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
+			when 'Question'
+				git_issue = client.create_issue(repo, title, desc, {:labels => ["question"]})
+			else
+				git_issue = client.create_issue(repo, title, desc)
+			end
+
 		#determine if issue is bug or not & set issue number to corresponding github number
 		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
-			git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
-			issue_num = git_issue[:number].to_s
-			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => issue_num}, {:hook => false})
+			#git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+
+			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
 		else
 			git_issue = client.create_issue(repo, title, desc)
 			issue_num = git_issue[:number].to_s
-			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => issue_num}, {:hook => false})
+			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
 		end
 
 	when 'item.update'
