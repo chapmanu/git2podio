@@ -70,13 +70,15 @@ post '/' do
 		puts "Item updated!"
 
 		issue = Podio::Item.find_basic(params['item_id'])
-		puts issue.attributes[:fields]
+		
 
 		item_id = params['item_id']
 		field_id = issue.attributes[:fields][1]["field_id"]
 
 		Podio::ItemField.update(item_id, field_id, {:value => '30'}, {:hook => false})
 		Podio::ItemField.update(item_id, field_id, {:config => '31'}, {:hook => false})
+
+		puts issue.attributes[:fields]
 
 	when 'item.delete'
 		puts "Item deleted"
