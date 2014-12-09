@@ -20,6 +20,17 @@ post '/' do
 		Podio::Hook.validate(params['hook_id'], params['code'])
 
 	when 'item.create'
+		#chapman_issue = ChapmanPodioIssue.new(params['item_id'])
+		#chapman_issue.create_on_github
+
+
+		# Step 1 Get issue from podio
+		# Step 2 Create issue on github
+		# Step 3 Updated github cateog
+		# Step 4 Update podio issue
+		
+
+
 		#grab basic info for new podio issue
 		issue = Podio::Item.find_basic(params['item_id'])
 		puts issue.attributes[:fields]
@@ -76,7 +87,7 @@ post '/' do
 		field_id = issue.attributes[:fields][1]["field_id"]
 
 		Podio::ItemField.update(item_id, field_id, {:value => '30'}, {:hook => false})
-		Podio::ItemField.update(item_id, field_id, {:config => '31'}, {:hook => false})
+		#Podio::ItemField.update(item_id, field_id, {:config => '31'}, {:hook => false})
 
 		puts issue.attributes[:fields]
 
