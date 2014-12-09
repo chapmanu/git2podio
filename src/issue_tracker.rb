@@ -58,6 +58,7 @@ post '/' do
 
 		#update the Podio item id with the corresponding github issue id
 		Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
+		#Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:config => git_issue[:number].to_s}, {:hook => false})
 
 		#close the issue on github if the status on Podio is set to complete
 		status = issue.attributes[:fields][5]["values"][0]["value"]["text"]
@@ -73,8 +74,9 @@ post '/' do
 
 		item_id = params['item_id']
 		field_id = issue.attributes[:fields][1]["field_id"]
-		#puts Podio.connection.get("/item/#{item_id}/value/#{field_id}").body.inspect
+
 		Podio::ItemField.update(item_id, field_id, {:value => '30'}, {:hook => false})
+		Podio::ItemField.update(item_id, field_id, {:config => '31'}, {:hook => false})
 
 	when 'item.delete'
 		puts "Item deleted"
