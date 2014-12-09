@@ -54,17 +54,15 @@ post '/' do
 				git_issue = client.create_issue(repo, title, desc, {:labels => ["question"]})
 			else
 				git_issue = client.create_issue(repo, title, desc)
-			end
+		end
 
-		#determine if issue is bug or not & set issue number to corresponding github number
-		if issue.attributes[:tags].include? 'bug' or issue.attributes[:tags].include? 'Bug'
-			#git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+		#update the Podio item id with the corresponding github issue id
+		Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
 
-			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
-		else
-			git_issue = client.create_issue(repo, title, desc)
-			issue_num = git_issue[:number].to_s
-			Podio::ItemField.update(params['item_id'], issue.attributes[:fields][1]["field_id"], {:value => git_issue[:number].to_s}, {:hook => false})
+		#close the issue on github if the status on Podio is set to complete
+		status = issue.attributes[:fields][5]["values"][0]["value"]["text"]
+		if status == "Complete"
+			client.close_issue(repo, git_issue[:number])
 		end
 
 	when 'item.update'
