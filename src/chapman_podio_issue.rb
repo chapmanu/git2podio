@@ -12,7 +12,7 @@ class ChapmanPodioIssue
 
 		issue.attributes[:fields].each do |field|
 			field_id = field["field_id"]
-			@fields_hash[field_id] = field["values"][0]["value"]
+			@fields_hash[field_id].to_s = field["values"][0]["value"]
 		end
 
 		puts @fields_hash.inspect
@@ -22,8 +22,9 @@ class ChapmanPodioIssue
 
 	##### Get all individual fields #####
 	def get_title
-		puts @fields_hash["72675682"]
-		title = @fields_hash[FIELDS_MAP[0]]
+		puts @fields_hash[FIELDS_MAP[:title]]
+
+		title = @fields_hash[FIELDS_MAP[:title]]
 		if title != nil
 			return title
 		else
