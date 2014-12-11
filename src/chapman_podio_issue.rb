@@ -5,8 +5,8 @@ require 'octokit'
 require 'pry-byebug'
 
 class ChapmanPodioIssue
-	def initialize(issue)
-		@git_client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
+	def initialize(issue, client)
+		@git_client = client
 
 		@fields_hash = {}
 
@@ -14,15 +14,17 @@ class ChapmanPodioIssue
 			field_id = field["field_id"]
 			@fields_hash[field_id] = field["values"][0]["value"]
 		end
+
+		puts @fields_hash.inspect
 	end
 
 	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405', reported_by: '72676404'}
 
 	##### Get all individual fields #####
 	def get_title
-		puts @fields_hash[FIELDS_MAP[:title]].inspect
-		title = @fields_hash[FIELDS_MAP[:title]]
-		if title
+		puts @fields_hash[FIELDS_MAP[0]]
+		title = @fields_hash[FIELDS_MAP[0]]
+		if title != nil
 			return title
 		else
 			return ""
@@ -30,9 +32,9 @@ class ChapmanPodioIssue
 	end
 
 	def get_issue_number
-		puts @fields_hash[FIELDS_MAP[:issue_number]].inspect
-		issue_number = @fields_hash[FIELDS_MAP[:issue_number]]
-		if issue_number
+		puts @fields_hash[FIELDS_MAP[1]]
+		issue_number = @fields_hash[FIELDS_MAP[1]]
+		if issue_number != nil
 			return issue_number
 		else
 			return ""
@@ -40,9 +42,9 @@ class ChapmanPodioIssue
 	end
 
 	def get_description
-		puts @fields_hash[FIELDS_MAP[:description]].inspect
-		description = @fields_hash[FIELDS_MAP[:description]]
-		if description
+		puts @fields_hash[FIELDS_MAP[2]]
+		description = @fields_hash[FIELDS_MAP[2]]
+		if description != nil
 			return description
 		else
 			return ""
@@ -50,9 +52,9 @@ class ChapmanPodioIssue
 	end
 
 	def get_repo
-		puts @fields_hash[FIELDS_MAP[:project]].inspect
-		repo = @fields_hash[FIELDS_MAP[:project]]
-		if repo
+		puts @fields_hash[FIELDS_MAP[3]]
+		repo = @fields_hash[FIELDS_MAP[3]]
+		if repo != nil
 			return repo
 		else
 			return ""
@@ -60,9 +62,9 @@ class ChapmanPodioIssue
 	end
 
 	def get_category
-		puts @fields_hash[FIELDS_MAP[:category]].inspect
-		category = @fields_hash[FIELDS_MAP[:category]]
-		if category
+		puts @fields_hash[FIELDS_MAP[4]]
+		category = @fields_hash[FIELDS_MAP[4]]
+		if category != nil
 			return category
 		else
 			return ""
@@ -70,9 +72,9 @@ class ChapmanPodioIssue
 	end
 
 	def get_status
-		puts @fields_hash[FIELDS_MAP[:status]].inspect
-		status = @fields_hash[FIELDS_MAP[:status]]
-		if status
+		puts @fields_hash[FIELDS_MAP[5]]
+		status = @fields_hash[FIELDS_MAP[5]]
+		if status != nil
 			return status
 		else
 			return ""
@@ -80,8 +82,8 @@ class ChapmanPodioIssue
 	end
 
 	def get_assigned_to
-		assigned_to = @fields_hash[FIELDS_MAP[:assigned_to]]
-		if assigned_to
+		assigned_to = @fields_hash[FIELDS_MAP[6]]
+		if assigned_to != nil
 			return assigned_to
 		else
 			return ""
@@ -89,8 +91,8 @@ class ChapmanPodioIssue
 	end
 
 	def get_reported_by
-		reported_by = @fields_hash[FIELDS_MAP[:reported_by]]
-		if reported_by
+		reported_by = @fields_hash[FIELDS_MAP[7]]
+		if reported_by != nil
 			return reported_by
 		else
 			return ""
