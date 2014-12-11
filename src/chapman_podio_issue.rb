@@ -11,8 +11,8 @@ class ChapmanPodioIssue
 		@fields_hash = {}
 
 		issue.attributes[:fields].each do |field|
-			field_id = field["field_id"]
-			@fields_hash[field_id].to_s = field["values"][0]["value"]
+			field_id = field["field_id"].to_s
+			@fields_hash[field_id] = field["values"][0]["value"]
 		end
 
 		puts @fields_hash.inspect
