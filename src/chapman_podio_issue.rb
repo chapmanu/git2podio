@@ -22,8 +22,6 @@ class ChapmanPodioIssue
 
 	##### Get all individual fields #####
 	def get_title
-		puts @fields_hash[FIELDS_MAP[:title]]
-
 		title = @fields_hash[FIELDS_MAP[:title]]
 		if title != nil
 			return title
@@ -33,8 +31,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_issue_number
-		puts @fields_hash[FIELDS_MAP[1]]
-		issue_number = @fields_hash[FIELDS_MAP[1]]
+		issue_number = @fields_hash[FIELDS_MAP[:issue_number]]
 		if issue_number != nil
 			return issue_number
 		else
@@ -43,8 +40,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_description
-		puts @fields_hash[FIELDS_MAP[2]]
-		description = @fields_hash[FIELDS_MAP[2]]
+		description = @fields_hash[FIELDS_MAP[:description]]
 		if description != nil
 			return description
 		else
@@ -53,8 +49,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_repo
-		puts @fields_hash[FIELDS_MAP[3]]
-		repo = @fields_hash[FIELDS_MAP[3]]
+		repo = @fields_hash[FIELDS_MAP[:project]]
 		if repo != nil
 			return repo
 		else
@@ -63,8 +58,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_category
-		puts @fields_hash[FIELDS_MAP[4]]
-		category = @fields_hash[FIELDS_MAP[4]]
+		category = @fields_hash[FIELDS_MAP[:category]]
 		if category != nil
 			return category
 		else
@@ -73,8 +67,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_status
-		puts @fields_hash[FIELDS_MAP[5]]
-		status = @fields_hash[FIELDS_MAP[5]]
+		status = @fields_hash[FIELDS_MAP[:status]]
 		if status != nil
 			return status
 		else
@@ -83,7 +76,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_assigned_to
-		assigned_to = @fields_hash[FIELDS_MAP[6]]
+		assigned_to = @fields_hash[FIELDS_MAP[:assigned_to]]
 		if assigned_to != nil
 			return assigned_to
 		else
@@ -92,7 +85,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_reported_by
-		reported_by = @fields_hash[FIELDS_MAP[7]]
+		reported_by = @fields_hash[FIELDS_MAP[:reported_by]]
 		if reported_by != nil
 			return reported_by
 		else
