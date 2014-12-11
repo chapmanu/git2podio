@@ -7,6 +7,7 @@ require 'pry-byebug'
 class ChapmanPodioIssue
 	def initialize(params)
 		@issue = Podio::Item.find_basic(params['item_id'])
+		puts issue.attributes[:fields]
 		@fields_hash = {}
 
 		@issue.attributes[:fields].each do |field|
