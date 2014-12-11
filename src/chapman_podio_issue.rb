@@ -14,15 +14,13 @@ class ChapmanPodioIssue
 			field_id = field["field_id"]
 			@fields_hash[field_id] = field["values"][0]["value"]
 		end
-
-		puts @fields_hash.inspect
 	end
 
 	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405', reported_by: '72676404'}
 
 	##### Get all individual fields #####
 	def get_title
-		puts @fields_hash[FIELDS_MAP[:title]]
+		puts @fields_hash[FIELDS_MAP[:title]].inspect
 		title = @fields_hash[FIELDS_MAP[:title]]
 		if title
 			return title
@@ -32,7 +30,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_issue_number
-		puts @fields_hash[FIELDS_MAP[:issue_number]]
+		puts @fields_hash[FIELDS_MAP[:issue_number]].inspect
 		issue_number = @fields_hash[FIELDS_MAP[:issue_number]]
 		if issue_number
 			return issue_number
@@ -42,7 +40,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_description
-		puts @fields_hash[FIELDS_MAP[:description]]
+		puts @fields_hash[FIELDS_MAP[:description]].inspect
 		description = @fields_hash[FIELDS_MAP[:description]]
 		if description
 			return description
@@ -52,7 +50,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_repo
-		puts @fields_hash[FIELDS_MAP[:project]]
+		puts @fields_hash[FIELDS_MAP[:project]].inspect
 		repo = @fields_hash[FIELDS_MAP[:project]]
 		if repo
 			return repo
@@ -62,7 +60,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_category
-		puts @fields_hash[FIELDS_MAP[:category]]
+		puts @fields_hash[FIELDS_MAP[:category]].inspect
 		category = @fields_hash[FIELDS_MAP[:category]]
 		if category
 			return category
@@ -72,7 +70,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_status
-		puts @fields_hash[FIELDS_MAP[:status]]
+		puts @fields_hash[FIELDS_MAP[:status]].inspect
 		status = @fields_hash[FIELDS_MAP[:status]]
 		if status
 			return status
