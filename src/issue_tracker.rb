@@ -3,7 +3,7 @@ require 'sinatra'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
-require 'chapmanpodioissue'
+require 'chapman_podio_issue.rb'
 
 post '/' do
   
