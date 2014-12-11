@@ -28,16 +28,7 @@ post '/' do
 	when 'item.update'
 		puts "Item updated!"
 
-		issue = Podio::Item.find_basic(params['item_id'])
-		
-
-		item_id = params['item_id']
-		field_id = issue.attributes[:fields][1]["field_id"]
-
-		Podio::ItemField.update(item_id, field_id, {:value => '30'}, {:hook => false})
-		#Podio::ItemField.update(item_id, field_id, {:config => '31'}, {:hook => false})
-
-		puts issue.attributes[:fields]
+		puts client.org_members('chapmanu').inspect
 
 	when 'item.delete'
 		puts "Item deleted"
