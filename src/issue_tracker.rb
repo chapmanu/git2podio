@@ -3,7 +3,6 @@ require 'sinatra'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
-require 'chapman_podio_issue'
 
 post '/' do
   
