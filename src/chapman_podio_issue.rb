@@ -12,7 +12,7 @@ class ChapmanPodioIssue
 			field_id = field["field_id"]
 			@fields_hash[field_id] = field["values"][0]["value"]
 		end
-		
+
 		puts @fields_hash.inspect
 	end
 
@@ -51,7 +51,7 @@ class ChapmanPodioIssue
 
 	def get_repo
 		puts @fields_hash[FIELDS_MAP[:project]]
-		repo = @fields_hash[FIELDS_MAP[:project]]["title"]
+		repo = @fields_hash[FIELDS_MAP[:project]]
 		if repo
 			return repo
 		else
@@ -61,7 +61,7 @@ class ChapmanPodioIssue
 
 	def get_category
 		puts @fields_hash[FIELDS_MAP[:category]]
-		category = @fields_hash[FIELDS_MAP[:category]]["text"]
+		category = @fields_hash[FIELDS_MAP[:category]]
 		if category
 			return category
 		else
@@ -71,7 +71,7 @@ class ChapmanPodioIssue
 
 	def get_status
 		puts @fields_hash[FIELDS_MAP[:status]]
-		status = @fields_hash[FIELDS_MAP[:status]]["text"]
+		status = @fields_hash[FIELDS_MAP[:status]]
 		if status
 			return status
 		else
@@ -100,7 +100,8 @@ class ChapmanPodioIssue
 	def create_on_github
 		title       = get_title
 		issue_num   = get_issue_number
-		desc        = get_description[3..-5]
+		desc        = get_description
+		desc        = desc[3..-5]
 		repo        = get_repo
 		category    = get_category
 		status      = get_status
@@ -108,7 +109,7 @@ class ChapmanPodioIssue
 		reported_by = get_reported_by
 
 		#determine which repo to send issue to
-		case repo
+		case repo["title"]
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
 			when 'Blogs'
@@ -122,7 +123,7 @@ class ChapmanPodioIssue
  		
  		#create issue in github and give it correct tag
 		git_issue = nil
-		case category
+		case category["text"]
 			when 'Bug'
 				git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
 			when 'Enhancement'
@@ -137,7 +138,7 @@ class ChapmanPodioIssue
 		Podio::ItemField.update(params['item_id'], FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 		#close the issue on github if the status on Podio is set to complete
-		if status == "Complete"
+		if status["text"] == "Complete"
 			client.close_issue(repo, git_issue[:number])
 		end
 	end
