@@ -22,7 +22,7 @@ class ChapmanPodioIssue
 
 	##### Get all individual fields #####
 	def get_title
-		puts @fields_hash[:72675682]
+		puts @fields_hash['72675682']
 		title = @fields_hash[FIELDS_MAP[0]]
 		if title != nil
 			return title
