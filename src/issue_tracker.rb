@@ -22,7 +22,7 @@ post '/' do
 
 	when 'item.create'
 		issue = Podio::Item.find_basic(params['item_id'])
-		chapman_issue = ChapmanPodioIssue.new(issue)
+		chapman_issue = ChapmanPodioIssue.new(issue, client)
 		chapman_issue.create_on_github
 
 

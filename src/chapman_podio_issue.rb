@@ -5,7 +5,9 @@ require 'octokit'
 require 'pry-byebug'
 
 class ChapmanPodioIssue
-	def initialize(issue)
+	def initialize(issue, client)
+		@git_client = client
+
 		@fields_hash = {}
 
 		issue.attributes[:fields].each do |field|
@@ -125,13 +127,13 @@ class ChapmanPodioIssue
 		git_issue = nil
 		case category["text"]
 			when 'Bug'
-				git_issue = client.create_issue(repo, title, desc, {:labels => ["bug"]})
+				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["bug"]})
 			when 'Enhancement'
-				git_issue = client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
+				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
 			when 'Question'
-				git_issue = client.create_issue(repo, title, desc, {:labels => ["question"]})
+				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["question"]})
 			else
-				git_issue = client.create_issue(repo, title, desc)
+				git_issue = @git_client.create_issue(repo, title, desc)
 		end
 
 		#update the Podio item id with the corresponding github issue id
