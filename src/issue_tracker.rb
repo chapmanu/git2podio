@@ -3,6 +3,7 @@ require 'sinatra'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
+require 'chapman_podio_issue'
 
 post '/' do
   
@@ -20,8 +21,8 @@ post '/' do
 		Podio::Hook.validate(params['hook_id'], params['code'])
 
 	when 'item.create'
-		#chapman_issue = ChapmanPodioIssue.new(params['item_id'])
-		#chapman_issue.create_on_github
+		chapman_issue = ChapmanPodioIssue.new(params['item_id'])
+		chapman_issue.create_on_github
 
 
 		# Step 1 Get issue from podio
@@ -32,6 +33,7 @@ post '/' do
 
 
 		#grab basic info for new podio issue
+=begin
 		issue = Podio::Item.find_basic(params['item_id'])
 		puts issue.attributes[:fields]
 
@@ -76,6 +78,7 @@ post '/' do
 		if status == "Complete"
 			client.close_issue(repo, git_issue[:number])
 		end
+=end
 
 	when 'item.update'
 		puts "Item updated!"
