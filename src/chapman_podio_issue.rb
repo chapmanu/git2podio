@@ -5,7 +5,8 @@ require 'octokit'
 require 'pry-byebug'
 
 class ChapmanPodioIssue
-	def initialize(issue, client)
+	def initialize(item_id, issue, client)
+		@item_id = item_id
 		@git_client = client
 
 		@fields_hash = {}
@@ -131,7 +132,7 @@ class ChapmanPodioIssue
 		end
 
 		#update the Podio item id with the corresponding github issue id
-		Podio::ItemField.update(params['item_id'], FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
+		Podio::ItemField.update(params['@item_id'], FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 		#close the issue on github if the status on Podio is set to complete
 		if status["text"] == "Complete"
