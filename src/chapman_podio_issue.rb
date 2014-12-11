@@ -23,75 +23,35 @@ class ChapmanPodioIssue
 
 	##### Get all individual fields #####
 	def get_title
-		title = @fields_hash[FIELDS_MAP[:title]]
-		if title != nil
-			return title
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:title]] || ""
 	end
 
 	def get_issue_number
-		issue_number = @fields_hash[FIELDS_MAP[:issue_number]]
-		if issue_number != nil
-			return issue_number
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:issue_number]] || ""
 	end
 
 	def get_description
-		description = @fields_hash[FIELDS_MAP[:description]]
-		if description != nil
-			return description
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:description]] || ""
 	end
 
 	def get_repo
-		repo = @fields_hash[FIELDS_MAP[:project]]
-		if repo != nil
-			return repo
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:project]] || ""
 	end
 
 	def get_category
-		category = @fields_hash[FIELDS_MAP[:category]]
-		if category != nil
-			return category
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:category]] || ""
 	end
 
 	def get_status
-		status = @fields_hash[FIELDS_MAP[:status]]
-		if status != nil
-			return status
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:status]] || ""
 	end
 
 	def get_assigned_to
-		assigned_to = @fields_hash[FIELDS_MAP[:assigned_to]]
-		if assigned_to != nil
-			return assigned_to
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:assigned_to]] || ""
 	end
 
 	def get_reported_by
-		reported_by = @fields_hash[FIELDS_MAP[:reported_by]]
-		if reported_by != nil
-			return reported_by
-		else
-			return ""
-		end
+		@fields_hash[FIELDS_MAP[:reported_by]] || ""
 	end
 
 	def create_on_github
@@ -120,23 +80,29 @@ class ChapmanPodioIssue
  		
  		#create issue in github and give it correct tag
 		git_issue = nil
-		case category["text"]
-			when 'Bug'
-				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["bug"]})
-			when 'Enhancement'
-				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
-			when 'Question'
-				git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["question"]})
-			else
-				git_issue = @git_client.create_issue(repo, title, desc)
-		end
+
+		has_label = category["text"] =~ /Bug|Enhancement|Question/
+
+		labels    = has_label ? { :labels => [category["text"].downcase] } : nil
+		git_issue = @git_client.create_issue(repo, title, desc, labels)
+
+		# case category["text"]
+		# 	when 'Bug'
+		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["bug"]})
+		# 	when 'Enhancement'
+		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
+		# 	when 'Question'
+		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["question"]})
+		# 	else
+		# 		git_issue = @git_client.create_issue(repo, title, desc)
+		# end
 
 		#update the Podio item id with the corresponding github issue id
 		Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 		#close the issue on github if the status on Podio is set to complete
 		if status["text"] == "Complete"
-			client.close_issue(repo, git_issue[:number])
+			@git_client.close_issue(repo, git_issue[:number])
 		end
 	end
 
