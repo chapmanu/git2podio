@@ -31,6 +31,7 @@ post '/' do
 		client.org_members('chapmanu').each do |member|
 			if member['login']
 				puts member['login']
+			end
 		end
 
 	when 'item.delete'
