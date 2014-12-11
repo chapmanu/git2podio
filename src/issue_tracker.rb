@@ -29,7 +29,8 @@ post '/' do
 		puts "Item updated!"
 
 		client.org_members('chapmanu').each do |member|
-			puts member['login']
+			if member['login']
+				puts member['login']
 		end
 
 	when 'item.delete'
