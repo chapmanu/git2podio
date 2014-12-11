@@ -17,6 +17,7 @@ class ChapmanPodioIssue
 
 	##### Get all individual fields #####
 	def get_title
+		puts @fields_hash[FIELDS_MAP[:title]]
 		title = @fields_hash[FIELDS_MAP[:title]]
 		if title
 			return title
@@ -26,6 +27,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_issue_number
+		puts @fields_hash[FIELDS_MAP[:issue_number]]
 		issue_number = @fields_hash[FIELDS_MAP[:issue_number]]
 		if issue_number
 			return issue_number
@@ -35,7 +37,8 @@ class ChapmanPodioIssue
 	end
 
 	def get_description
-		description = @fields_hash[FIELDS_MAP[:description]][3..-5]
+		puts @fields_hash[FIELDS_MAP[:description]]
+		description = @fields_hash[FIELDS_MAP[:description]]
 		if description
 			return description
 		else
@@ -44,6 +47,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_repo
+		puts @fields_hash[FIELDS_MAP[:project]]
 		repo = @fields_hash[FIELDS_MAP[:project]]["title"]
 		if repo
 			return repo
@@ -53,6 +57,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_category
+		puts @fields_hash[FIELDS_MAP[:category]]
 		category = @fields_hash[FIELDS_MAP[:category]]["text"]
 		if category
 			return category
@@ -62,6 +67,7 @@ class ChapmanPodioIssue
 	end
 
 	def get_status
+		puts @fields_hash[FIELDS_MAP[:status]]
 		status = @fields_hash[FIELDS_MAP[:status]]["text"]
 		if status
 			return status
@@ -91,7 +97,7 @@ class ChapmanPodioIssue
 	def create_on_github
 		title       = get_title
 		issue_num   = get_issue_number
-		desc        = get_description
+		desc        = get_description[3..-5]
 		repo        = get_repo
 		category    = get_category
 		status      = get_status
@@ -132,6 +138,6 @@ class ChapmanPodioIssue
 			client.close_issue(repo, git_issue[:number])
 		end
 	end
-	
+
 	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to, :get_reported_by
 end
