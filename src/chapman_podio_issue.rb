@@ -5,12 +5,10 @@ require 'octokit'
 require 'pry-byebug'
 
 class ChapmanPodioIssue
-	def initialize(params)
-		@issue = Podio::Item.find_basic(params['item_id'])
-		puts issue.attributes[:fields]
+	def initialize(issue)
 		@fields_hash = {}
 
-		@issue.attributes[:fields].each do |field|
+		issue.attributes[:fields].each do |field|
 			@fields_hash.merge!('#{field["field_id"]}' => '#{field["values"][0]["value"]}')
 		end
 	end

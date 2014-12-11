@@ -21,7 +21,8 @@ post '/' do
 		Podio::Hook.validate(params['hook_id'], params['code'])
 
 	when 'item.create'
-		chapman_issue = ChapmanPodioIssue.new(params['item_id'])
+		issue = Podio::Item.find_basic(params['item_id'])
+		chapman_issue = ChapmanPodioIssue.new(issue)
 		chapman_issue.create_on_github
 
 
