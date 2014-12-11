@@ -12,7 +12,7 @@ post '/' do
   Podio.client.authenticate_with_app('9343326', '8a6c2571599e470d8dbaae867a70ce94')
 
   #github login
-  client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
+  
 
   case params['type']
 	when 'hook.verify'
@@ -22,7 +22,7 @@ post '/' do
 
 	when 'item.create'
 		issue = Podio::Item.find_basic(params['item_id'])
-		chapman_issue = ChapmanPodioIssue.new(issue, client)
+		chapman_issue = ChapmanPodioIssue.new(issue)
 		chapman_issue.create_on_github
 
 
