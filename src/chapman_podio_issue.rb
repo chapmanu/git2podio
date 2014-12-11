@@ -10,7 +10,7 @@ class ChapmanPodioIssue
 		@fields_hash = {}
 
 		@issue.attributes[:fields].each do |field|
-			@fields_hash.merge!(field["field_id"]: field["values"][0]["value"])
+			@fields_hash.merge!('#{field["field_id"]}' => '#{field["values"][0]["value"]}')
 		end
 	end
 
