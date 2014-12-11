@@ -132,7 +132,7 @@ class ChapmanPodioIssue
 		end
 
 		#update the Podio item id with the corresponding github issue id
-		Podio::ItemField.update(params['@item_id'], FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
+		Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 		#close the issue on github if the status on Podio is set to complete
 		if status["text"] == "Complete"
