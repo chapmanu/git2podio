@@ -6,7 +6,7 @@ require 'pry-byebug'
 
 class ChapmanPodioIssue
 	def initialize(issue, client)
-		@git_client = client
+		@git_client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
 
 		@fields_hash = {}
 
