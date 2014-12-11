@@ -88,11 +88,7 @@ class ChapmanPodioIssue
 		end
 	end
 
-	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to, :get_reported_by
-end
-
-#create issue on github
-def create_on_github
+	def create_on_github
 		title       = get_title
 		issue_num   = get_issue_number
 		desc        = get_description
@@ -136,3 +132,6 @@ def create_on_github
 			client.close_issue(repo, git_issue[:number])
 		end
 	end
+	
+	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to, :get_reported_by
+end
