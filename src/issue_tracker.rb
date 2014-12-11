@@ -28,7 +28,9 @@ post '/' do
 	when 'item.update'
 		puts "Item updated!"
 
-		puts client.org_members('chapmanu').inspect
+		client.org_members('chapmanu').each do |member|
+			puts member['login']
+		end
 
 	when 'item.delete'
 		puts "Item deleted"
