@@ -98,7 +98,7 @@ class ChapmanPodioIssue
 		elsif assignee == "Ben Cole"
 			assignee = "bcole808"
 		elsif assignee == "Matt Congel"
-			assignee = "homeofmatt"
+			assignee = "Matt Congel"
 		else
 			assignee = nil
 		end
