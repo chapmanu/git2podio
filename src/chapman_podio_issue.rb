@@ -100,7 +100,7 @@ class ChapmanPodioIssue
 		elsif assignee == "Matt Congel"
 			assignee = "homeofmatt"
 		else
-			assignee = "none"
+			assignee = nil
 		end
 
 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => labels, :assignee => assignee})
