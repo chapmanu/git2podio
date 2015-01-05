@@ -125,5 +125,5 @@ class ChapmanPodioIssue
 		end
 	end
 
-	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to, :get_reported_by
+	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to #, :get_reported_by
 end
