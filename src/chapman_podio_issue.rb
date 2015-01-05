@@ -83,7 +83,7 @@ class ChapmanPodioIssue
 
 		#label
 		has_label = category["text"] =~ /Bug|Enhancement|Question/
-		labels    = has_label ? { :labels => [category["text"].downcase] }  : nil
+		labels    = has_label ? category["text"].downcase : nil
 
 		#assigned_to
 		#has_assignee = assigned_to["name"] =~ /Meghan Farrington|James Kerr|Ben Cole|Matt Congel/
@@ -103,7 +103,7 @@ class ChapmanPodioIssue
 			assignee = nil
 		end
 
-		git_issue = @git_client.create_issue(repo, title, desc, {labels, :assignee => assignee})
+		git_issue = @git_client.create_issue(repo, title, desc, {:labels => labels, :assignee => assignee})
 
 		# case category["text"]
 		# 	when 'Bug'
