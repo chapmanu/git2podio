@@ -19,7 +19,7 @@ class ChapmanPodioIssue
 		puts @fields_hash.inspect
 	end
 
-	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405', reported_by: '72676404'}
+	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'} #, reported_by: '72676404'}
 
 	##### Get all individual fields #####
 	def get_title
@@ -50,9 +50,9 @@ class ChapmanPodioIssue
 		@fields_hash[FIELDS_MAP[:assigned_to]] || ""
 	end
 
-	def get_reported_by
-		@fields_hash[FIELDS_MAP[:reported_by]] || ""
-	end
+	#def get_reported_by
+	#	@fields_hash[FIELDS_MAP[:reported_by]] || ""
+	#end
 
 	def create_on_github
 		title       = get_title
@@ -63,7 +63,7 @@ class ChapmanPodioIssue
 		category    = get_category
 		status      = get_status
 		assigned_to = get_assigned_to
-		reported_by = get_reported_by
+		#reported_by = get_reported_by
 
 		#determine which repo to send issue to
 		case repo["title"]
@@ -81,10 +81,30 @@ class ChapmanPodioIssue
  		#create issue in github and give it correct tag
 		git_issue = nil
 
+		#label
 		has_label = category["text"] =~ /Bug|Enhancement|Question/
+		labels    = has_label ? :labels => [category["text"].downcase]  : nil
 
-		labels    = has_label ? { :labels => [category["text"].downcase] } : nil
-		git_issue = @git_client.create_issue(repo, title, desc, labels)
+		#assigned_to
+		#has_assignee = assigned_to["name"] =~ /Meghan Farrington|James Kerr|Ben Cole|Matt Congel/
+		#assignee = has_assignee ? { :assignee => [assigned_to["name"]] } : nil
+
+		assignee = assigned_to["name"]
+
+		if assignee == "Meghan Farrington"
+			assignee = "megagie"
+		elsif assignee == "James Kerr"
+			assignee = "jameskerr"
+		elsif assignee == "Ben Cole"
+			assignee = "bcole808"
+		elsif assignee == "Matt Congel"
+			assignee = "homeofmatt"
+		else
+			assignee = nil
+		end
+
+
+		git_issue = @git_client.create_issue(repo, title, desc, {:labels => labels, :assignee => assignee})
 
 		# case category["text"]
 		# 	when 'Bug'

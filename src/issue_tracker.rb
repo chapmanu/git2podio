@@ -28,6 +28,7 @@ post '/' do
 	when 'item.update'
 		puts "Item updated!"
 
+		#next thing is to figure out how to relate assigned and reporting members to github
 		client.org_members('chapmanu').each do |member|
 			if member['login']
 				puts member['login']
