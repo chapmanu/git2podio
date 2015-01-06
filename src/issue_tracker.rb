@@ -38,9 +38,8 @@ post '/' do
 
 			#if it's an Issue Number or a Project, discard change completely.
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
-			label = revision[:label]
+			label = revision.[:label].to_s
 
-			issue = Podio::Item.find_basic(params['item_id'])
 			chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 			chapman_issue.update_on_github(label, revision)
 		else
