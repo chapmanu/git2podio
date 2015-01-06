@@ -49,9 +49,10 @@ post '/' do
 		end
 
 	when 'item.delete'
+		puts params.inspect
 		issue = Podio::Item.find_basic(params['item_id'])
 		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
-		puts params.inspect
+		
 		puts "-------------------"
 		puts issue.inspect
 		puts "-------------------"
