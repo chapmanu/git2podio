@@ -32,7 +32,16 @@ post '/' do
 		#chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 		#chapman_issue.update_on_github
 
-		puts Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], 0, 1).inspect
+		#this works to access
+		issue = Podio::Item.find_basic(params['item_id'])
+		curr_rev = issue.attributes[:app]['current_revision']
+
+		if curr_rev > 1
+			prev_rev = curr_rev - 1
+			puts Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev).inspect
+		else
+			puts "Unrevised post, invalid update."
+		end
 
 	when 'item.delete'
 		issue = Podio::Item.find_basic(params['item_id'])
