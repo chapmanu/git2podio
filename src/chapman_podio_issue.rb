@@ -112,18 +112,24 @@ class ChapmanPodioIssue
 		end
 	end
 
-	def update_on_github
+	def update_on_github(label, revision)
 		#We can only update the title, body, assignee, labels, & status
-		title       = get_title
-		issue_num   = get_issue_number
-		desc        = get_description
-		desc        = desc[3..-5]
-		repo        = get_repo
-		category    = get_category
-		status      = get_status
-		assigned_to = get_assigned_to
 
+		git_issue = @git_client.issue()
 
+		if label == "Issue Number"
+			# If user tries to change Issue Number, we set it back.
+			prev_num = revision.attributes[:from][0]["value"]["text"]
+			Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => prev_num}, {:hook => false})
+		
+		elsif label == "Project"
+			# Same process as Issue Number
+			prev_repo = revision.attributes[:from][0]["value"]["text"]
+			Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
+
+		else
+			puts "gimme a minute"
+		end
 	end
 
 	def delete_on_github

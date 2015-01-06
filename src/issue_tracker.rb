@@ -28,18 +28,21 @@ post '/' do
 	when 'item.update'
 
 		puts "Update incomplete atm."
-		#issue = Podio::Item.find_basic(params['item_id'])
-		#chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
-		#chapman_issue.update_on_github
 
-		#this works to access
 		issue = Podio::Item.find_basic(params['item_id'])
 		curr_rev = issue.attributes[:current_revision]['revision']
 
+		# An 'unrevised' issue should have a revision level of 1 b/c we revised the issue number when it was created
 		if curr_rev > 1
 			prev_rev = curr_rev - 1
-			puts curr_rev.inspect
-			puts Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev).inspect
+
+			#if it's an Issue Number or a Project, discard change completely.
+			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
+			label = revision.attributes[:label]
+
+			issue = Podio::Item.find_basic(params['item_id'])
+			chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
+			chapman_issue.update_on_github(label, revision)
 		else
 			puts "Unrevised post, invalid update."
 		end
