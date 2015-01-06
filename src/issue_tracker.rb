@@ -34,12 +34,10 @@ post '/' do
 
 		#this works to access
 		issue = Podio::Item.find_basic(params['item_id'])
-		curr_rev = issue.attributes[:app]['current_revision']
+		curr_rev = issue.attributes[:current_revision]['revision']
 
 		if curr_rev > 1
 			prev_rev = curr_rev - 1
-			puts issue.inspect
-			puts ""
 			puts curr_rev.inspect
 			puts Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev).inspect
 		else
