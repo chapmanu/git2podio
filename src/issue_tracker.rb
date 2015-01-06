@@ -36,13 +36,11 @@ post '/' do
 		if curr_rev > 1
 			prev_rev = curr_rev - 1
 
-			#if it's an Issue Number or a Project, discard change completely.
+			# Get the label
+			# If it's an Issue Number or a Project, discard change completely.
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
-			
 			revision = revision.map{|x| x.attributes}
-			puts revision[0][:label]
 			label = revision[0][:label]
-			puts label
 
 			chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 			chapman_issue.update_on_github(label, revision)
@@ -53,6 +51,11 @@ post '/' do
 	when 'item.delete'
 		issue = Podio::Item.find_basic(params['item_id'])
 		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
+		puts params.inspect
+		puts "-------------------"
+		puts issue.inspect
+		puts "-------------------"
+		puts chapman_issue.inspect
 		chapman_issue.delete_on_github
 
 	else
