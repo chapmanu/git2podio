@@ -40,6 +40,7 @@ post '/' do
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
 			
 			revision = revision.map{|x| x.attributes}
+			puts revision
 			puts revision[0]
 			puts revision[:label]
 			#label = revision[0][:label]
