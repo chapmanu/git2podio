@@ -86,9 +86,6 @@ class ChapmanPodioIssue
 		labels    = has_label ? category["text"].downcase : nil
 
 		#assigned_to
-		#has_assignee = assigned_to["name"] =~ /Meghan Farrington|James Kerr|Ben Cole|Matt Congel/
-		#assignee = has_assignee ? { :assignee => [assigned_to["name"]] } : nil
-
 		assignee = assigned_to["name"]
 
 		if assignee == "Meghan Farrington"
@@ -103,18 +100,8 @@ class ChapmanPodioIssue
 			assignee = nil
 		end
 
+		#create issue with current information
 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => labels, :assignee => assignee})
-
-		# case category["text"]
-		# 	when 'Bug'
-		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["bug"]})
-		# 	when 'Enhancement'
-		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["enhancement"]})
-		# 	when 'Question'
-		# 		git_issue = @git_client.create_issue(repo, title, desc, {:labels => ["question"]})
-		# 	else
-		# 		git_issue = @git_client.create_issue(repo, title, desc)
-		# end
 
 		#update the Podio item id with the corresponding github issue id
 		Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
@@ -123,6 +110,27 @@ class ChapmanPodioIssue
 		if status["text"] == "Complete"
 			@git_client.close_issue(repo, git_issue[:number])
 		end
+	end
+
+	def update_on_github
+		#We can only update the title, body, assignee, labels, & status
+		title       = get_title
+		issue_num   = get_issue_number
+		desc        = get_description
+		desc        = desc[3..-5]
+		repo        = get_repo
+		category    = get_category
+		status      = get_status
+		assigned_to = get_assigned_to
+
+
+	end
+
+	def delete_on_github
+		issue_num = get_issue_number
+		repo      = get_repo
+
+		@git_client.close_issue(repo, issue_num)
 	end
 
 	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to #, :get_reported_by

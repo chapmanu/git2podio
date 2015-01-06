@@ -26,17 +26,19 @@ post '/' do
 		chapman_issue.create_on_github
 
 	when 'item.update'
-		puts "Item updated!"
 
-		#next thing is to figure out how to relate assigned and reporting members to github
-		client.org_members('chapmanu').each do |member|
-			if member['login']
-				puts member['login']
-			end
-		end
+		puts "Update incomplete atm."
+		#issue = Podio::Item.find_basic(params['item_id'])
+		#chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
+		#chapman_issue.update_on_github
+
+		puts Podio::ItemRevision.find_all_by_item_id(params['item_id']).inspect
 
 	when 'item.delete'
-		puts "Item deleted"
+		issue = Podio::Item.find_basic(params['item_id'])
+		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
+		chapman_issue.delete_on_github
+
 	else
 		puts "Invalid hook verify: #{params.inspect}"
 	end
