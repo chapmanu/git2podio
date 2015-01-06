@@ -32,7 +32,7 @@ post '/' do
 		#chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 		#chapman_issue.update_on_github
 
-		puts Podio::ItemRevision.find_all_by_item_id(params['item_id']).inspect
+		puts Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], 0, 1).inspect
 
 	when 'item.delete'
 		issue = Podio::Item.find_basic(params['item_id'])
