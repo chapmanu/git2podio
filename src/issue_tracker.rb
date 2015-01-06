@@ -42,7 +42,8 @@ post '/' do
 			revision = revision.map{|x| x.attributes}
 			puts revision
 			puts revision[0]
-			puts revision[:label]
+			puts revision[0][:label]
+			puts revision[1]
 			#label = revision[0][:label]
 			#puts label
 
