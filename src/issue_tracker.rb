@@ -51,12 +51,13 @@ post '/' do
 	when 'item.delete'
 		puts params.inspect
 		issue = Podio::Item.find_basic(params['item_id'])
-		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
-		
 		puts "-------------------"
 		puts issue.inspect
 		puts "-------------------"
+
+		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 		puts chapman_issue.inspect
+		
 		chapman_issue.delete_on_github
 
 	else

@@ -115,7 +115,7 @@ class ChapmanPodioIssue
 	def update_on_github(label, revision)
 		#We can only update the title, body, assignee, labels, & status
 
-		git_issue = @git_client.issue()
+		#git_issue = @git_client.issue()
 
 		if label == "Issue Number"
 			# If user tries to change Issue Number, we set it back.
