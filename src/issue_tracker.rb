@@ -40,7 +40,7 @@ post '/' do
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
 			
 			#label = revision[:label]
-			puts revision
+			puts revision.attributes
 			puts "---------------------------"
 			puts revision.inspect
 
