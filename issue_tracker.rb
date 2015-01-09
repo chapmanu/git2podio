@@ -1,9 +1,12 @@
 require 'active_support'
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
 require_relative 'chapman_podio_issue'
+require_relative 'db_conn'
+require_relative 'id_set'
 
 post '/' do
   
@@ -23,7 +26,24 @@ post '/' do
 	when 'item.create'
 		issue = Podio::Item.find_basic(params['item_id'])
 		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
-		chapman_issue.create_on_github
+		
+		pod_id = params['item_id']
+		git_id = chapman_issue.create_on_github
+		git_repo = chapman_issue.get_repo #if this doesnt work get repo from params.
+		case git_repo["title"]
+			when 'Social', 'Inside', 'Events'
+				git_repo = "chapmanu/inside"
+			when 'Blogs'
+				git_repo = "chapmanu/cu-wp-template"
+			when 'Homepage'
+				git_repo = "chapmanu/web-components"
+			else
+				puts "Invalid Podio issue made: #{title}."
+				git_repo = "chapmanu/git2podio"
+		end
+
+		id_set = new IdSet(pod_id: pod_id, git_id: git_id, repo: git_repo)
+		id_set.save
 
 	when 'item.update'
 
@@ -49,16 +69,13 @@ post '/' do
 		end
 
 	when 'item.delete'
-		puts params.inspect
-		issue = Podio::Item.find_basic(params['item_id'])
-		puts "-------------------"
-		puts issue.inspect
-		puts "-------------------"
+		pod_id = params['item_id']
+		id_set = IdSet.find_by(pod_id: pod_id)
+		repo = id_set[:repo]
+		git_id = id_set[:git_id]
 
-		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
-		puts chapman_issue.inspect
-		
-		chapman_issue.delete_on_github
+		client.close_issue(repo, git_id)
+		id_set.destroy
 
 	else
 		puts "Invalid hook verify: #{params.inspect}"

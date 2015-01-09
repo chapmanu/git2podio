@@ -1,5 +1,6 @@
 require 'active_support'
 require 'sinatra'
+require 'sinatra/activerecord'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
@@ -110,6 +111,8 @@ class ChapmanPodioIssue
 		if status["text"] == "Complete"
 			@git_client.close_issue(repo, git_issue[:number])
 		end
+
+		return git_issue[:number].to_s
 	end
 
 	def update_on_github(label, revision)
@@ -139,5 +142,5 @@ class ChapmanPodioIssue
 		@git_client.close_issue(repo, issue_num)
 	end
 
-	private :get_title, :get_issue_number, :get_description, :get_repo, :get_category, :get_status, :get_assigned_to #, :get_reported_by
+	private :get_title, :get_issue_number, :get_description, :get_category, :get_status, :get_assigned_to
 end
