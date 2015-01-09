@@ -128,7 +128,7 @@ class ChapmanPodioIssue
 			# Same process as Issue Number, but for Repository
 			#prev_repo = revision[0][:from][0]["value"]
 			#Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
-			#Podio::ItemDiff.revert(@item_id, @curr_rev)
+			Podio::ItemDiff.revert(@item_id, @curr_rev, {:hook => false})
 			#Podio.connection.delete("/item/#{@item_id}/revision/#{@curr_rev}").body
 
 		else
