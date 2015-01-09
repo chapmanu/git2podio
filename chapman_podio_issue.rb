@@ -129,7 +129,7 @@ class ChapmanPodioIssue
 			#prev_repo = revision[0][:from][0]["value"]
 			#Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
 			#Podio::ItemDiff.revert(@item_id, @curr_rev)
-			Podio.connection.delete("/item/#{@item_id}/revision/#{@curr_rev}").body
+			#Podio.connection.delete("/item/#{@item_id}/revision/#{@curr_rev}").body
 
 		else
 			puts "gimme a minute"
