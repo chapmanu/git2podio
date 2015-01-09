@@ -1,9 +1,11 @@
-default: &default
+development:
   adapter: postgresql
   host: localhost
-  username: user
-  port: 5432
-
-development:
-  <<: *default
   database: id_sets
+  username: conge101
+
+production:
+  adapter: postgresql
+  host: localhost
+  database: id_sets
+  username: conge101
