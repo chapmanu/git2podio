@@ -63,7 +63,6 @@ post '/' do
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
 			revision = revision.map{|x| x.attributes}
 			label = revision[0][:label]
-			puts revision.inspect
 
 			chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 			chapman_issue.update_on_github(label, revision)

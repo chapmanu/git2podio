@@ -17,7 +17,6 @@ class ChapmanPodioIssue
 			@fields_hash[field_id] = field["values"][0]["value"]
 		end
 
-		puts @fields_hash.inspect
 	end
 
 	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'}
