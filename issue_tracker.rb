@@ -31,9 +31,9 @@ post '/' do
 		git_id = chapman_issue.create_on_github
 		git_repo = chapman_issue.get_repo #if this doesnt work get repo from params.
 		
-		puts git_repo.inspect
-		
-		case git_repo["title"]
+		puts git_repo['title']
+
+		case git_repo['title']
 			when 'Social', 'Inside', 'Events'
 				git_repo = "chapmanu/inside"
 			when 'Blogs'
