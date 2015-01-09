@@ -120,7 +120,7 @@ class ChapmanPodioIssue
 
 		if label == "Issue Number"
 			# If user tries to change Issue Number, we set it back.
-			prev_num = revision[0][:from][0]["value"]["text"]
+			prev_num = revision[0][:from][0]["value"]
 			puts prev_num
 			#Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => prev_num}, {:hook => false})
 
