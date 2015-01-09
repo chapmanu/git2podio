@@ -3,3 +3,4 @@ development:
   host: localhost
   username: user
   database: app-dev
+  port: 5432
