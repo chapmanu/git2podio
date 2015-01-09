@@ -1,1 +1,1 @@
-set :database, 'sqlite3:///shared_ids.db'
+set :database, 'sqlite:///shared_ids.db'
