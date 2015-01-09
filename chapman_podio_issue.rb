@@ -10,6 +10,8 @@ class ChapmanPodioIssue
 		@item_id = item_id
 		@git_client = client
 
+		@curr_rev = issue.attributes[:current_revision]['revision']
+
 		@fields_hash = {}
 
 		issue.attributes[:fields].each do |field|
@@ -124,11 +126,9 @@ class ChapmanPodioIssue
 
 		elsif label == "Project"
 			# Same process as Issue Number, but for Repository
-			prev_repo = revision[0][:from][0]["value"]
-			puts "================================="
-			puts prev_repo
-			puts "================================="
-			Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
+			#prev_repo = revision[0][:from][0]["value"]
+			#Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
+			Podio::ItemDiff.revert(@item_id, @curr_rev)
 
 		else
 			puts "gimme a minute"
