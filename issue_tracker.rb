@@ -44,7 +44,7 @@ post '/' do
 				git_repo = "chapmanu/git2podio"
 		end
 
-		id_set = new IdSet(pod_id: pod_id, git_id: git_id, repo: git_repo)
+		id_set = IdSet.new(pod_id: pod_id, git_id: git_id, repo: git_repo)
 		id_set.save
 
 	when 'item.update'
