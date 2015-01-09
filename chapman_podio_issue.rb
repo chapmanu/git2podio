@@ -20,7 +20,7 @@ class ChapmanPodioIssue
 		puts @fields_hash.inspect
 	end
 
-	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'} #, reported_by: '72676404'}
+	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'}
 
 	##### Get all individual fields #####
 	def get_title

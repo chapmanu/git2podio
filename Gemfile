@@ -8,5 +8,5 @@ gem "octokit", "~>3.7.0"
 gem 'pry-byebug'
 gem 'activerecord', '<4.0.0'
 gem 'sinatra-activerecord'
-gem 'sqlite3'
+gem 'pg'
 gem 'rake'
