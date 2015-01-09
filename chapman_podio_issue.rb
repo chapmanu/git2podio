@@ -126,7 +126,7 @@ class ChapmanPodioIssue
 		elsif label == "Project"
 			# Same process as Issue Number, but for Repository
 			prev_repo = revision[0][:from][0]["value"]["title"]
-			Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:value => prev_repo}, {:hook => false})
+			Podio::ItemField.update(@item_id, FIELDS_MAP[:project], {:title => prev_repo}, {:hook => false})
 
 		else
 			puts "gimme a minute"
