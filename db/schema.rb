@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20150108234029) do
   create_table "id_sets", :force => true do |t|
     t.integer "pod_id"
     t.integer "git_id"
+    t.string  "repo"
   end
 
 end
