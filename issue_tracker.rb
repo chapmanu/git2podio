@@ -30,6 +30,9 @@ post '/' do
 		pod_id = params['item_id']
 		git_id = chapman_issue.create_on_github
 		git_repo = chapman_issue.get_repo #if this doesnt work get repo from params.
+		
+		puts git_repo.inspect
+		
 		case git_repo["title"]
 			when 'Social', 'Inside', 'Events'
 				git_repo = "chapmanu/inside"
@@ -70,7 +73,7 @@ post '/' do
 
 	when 'item.delete'
 		pod_id = params['item_id']
-		id_set = IdSet.find_by(pod_id: pod_id)
+		id_set = IdSet.where(pod_id: pod_id).first
 		repo = id_set[:repo]
 		git_id = id_set[:git_id]
 
