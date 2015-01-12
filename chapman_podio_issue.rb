@@ -218,5 +218,5 @@ class ChapmanPodioIssue
 		end
 	end
 
-	private :get_title, :get_issue_number, :get_description, :get_category, :get_status, :get_assigned_to, :map_repository
+	private :get_title, :get_issue_number, :get_description, :get_category, :get_status, :get_assigned_to, :map_repo_to_git
 end
