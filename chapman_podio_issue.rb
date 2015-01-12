@@ -193,6 +193,7 @@ class ChapmanPodioIssue
 			# Update status
 			status = get_status
 			git_issue = @git_client.issue(db_row.repo, db_row.git_id)
+			old_git_issue = @git_client.issue(db_row.repo, db_row.git_id)
 			prev_status   = old_git_issue[:state]
 
 			# Because 'Backlog' and 'Current' translate to 'open' on github, a switch between the two is ignored
