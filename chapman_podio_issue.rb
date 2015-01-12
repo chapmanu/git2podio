@@ -181,9 +181,11 @@ class ChapmanPodioIssue
 		elsif label == "Category"
 			# Update label
 			category  = get_category
-			labels = nil
+			labels = Array.new
+
 			has_label = category["text"] =~ /Bug|Enhancement|Question/
-			labels[0] = has_label ? category["text"].downcase : nil
+			value = has_label ? category["text"].downcase : nil
+			labels.push(value)
 
 			@git_client.update_issue(db_row.repo, db_row.git_id, :labels => labels)
 
