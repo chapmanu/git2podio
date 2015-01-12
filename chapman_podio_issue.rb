@@ -156,7 +156,7 @@ class ChapmanPodioIssue
 				@git_client.close_issue(db_row.repo, db_row.git_id)
 
 				# Create new issue in new repository & close if prev issue was closed
-				git_issue = @git_client.create_issue(new_repo, title, desc, {:labels => labels, :assignee => assignee})
+				git_issue = @git_client.create_issue(new_repo, title, desc, {:labels => label, :assignee => assignee})
 				if status != "open"
 					@git_client.close_issue(new_repo, git_issue[:number])
 				end
