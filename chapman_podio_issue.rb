@@ -162,7 +162,7 @@ class ChapmanPodioIssue
 				end
 
 				# Update the Podio item id with the corresponding github issue id
-				Podio::ItemField.update(@item_id, db_row.git_id, {:value => git_issue[:number].to_s}, {:hook => false})
+				Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 				# Update database 
 				db_row.repo   = new_repo
