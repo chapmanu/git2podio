@@ -29,7 +29,7 @@ post '/' do
 		
 		pod_id = params['item_id']
 		git_id = chapman_issue.create_on_github
-		git_repo = chapman_issue.get_repo #if this doesnt work get repo from params.
+		git_repo = chapman_issue.get_repo
 		
 		title =  git_repo['title']
 
@@ -49,8 +49,6 @@ post '/' do
 
 	when 'item.update'
 
-		puts "Update incomplete atm."
-
 		issue = Podio::Item.find_basic(params['item_id'])
 		curr_rev = issue.attributes[:current_revision]['revision']
 
@@ -58,8 +56,7 @@ post '/' do
 		if curr_rev > 1
 			prev_rev = curr_rev - 1
 
-			# Get the label
-			# If it's an Issue Number or a Project, discard change completely.
+			# If it's an Issue Number, discard change completely.
 			revision = Podio::ItemDiff.find_by_item_and_revisions(params['item_id'], prev_rev, curr_rev)
 			revision = revision.map{|x| x.attributes}
 			label = revision[0][:label]
