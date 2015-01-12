@@ -13,7 +13,7 @@ require_relative 'id_set'
 require_relative 'chapman_podio_issue'
 
 # Initialize Configuration
-CONFIG = YAML.load_file('./config/setup.yml')
+CONFIG = YAML.load_file('config/setup.yml')
 
 # Main Hook Callback
 post '/' do
