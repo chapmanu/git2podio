@@ -181,6 +181,7 @@ class ChapmanPodioIssue
 		elsif label == "Category"
 			# Update label
 			category  = get_category
+			labels = nil
 			has_label = category["text"] =~ /Bug|Enhancement|Question/
 			labels[0] = has_label ? category["text"].downcase : nil
 
