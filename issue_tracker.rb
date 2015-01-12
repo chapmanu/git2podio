@@ -18,6 +18,7 @@ CONFIG = YAML.load_file('config/setup.yml')
 # Main Hook Callback
 post '/' do
   
+  puts CONFIG.inspect
   # Podio login & client object setup
   Podio.setup(:api_key => CONFIG[:podio_api_key], :api_secret => CONFIG[:podio_api_secret])
   Podio.client.authenticate_with_app(CONFIG[:podio_app_id].to_i, CONFIG[:podio_app_token])
