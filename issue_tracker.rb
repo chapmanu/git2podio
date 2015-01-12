@@ -37,7 +37,7 @@ post '/' do
 			when 'Social', 'Inside', 'Events'
 				git_repo = "chapmanu/inside"
 			when 'Blogs'
-				git_repo = "chapmanu/cu-wp-template"
+				git_repo = "chapmanu/issues_testing"#cu-wp-template"
 			when 'Homepage'
 				git_repo = "chapmanu/web-components"
 			else

@@ -70,7 +70,7 @@ class ChapmanPodioIssue
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
 			when 'Blogs'
-				repo = "chapmanu/cu-wp-template"
+				repo = "chapmanu/issues_testing"#cu-wp-template"
 			when 'Homepage'
 				repo = "chapmanu/web-components"
 			else
@@ -132,7 +132,7 @@ class ChapmanPodioIssue
 				when 'Social', 'Inside', 'Events'
 					new_repo = "chapmanu/inside"
 				when 'Blogs'
-					new_repo = "chapmanu/cu-wp-template"
+					new_repo = "chapmanu/issues_testing"#cu-wp-template"
 				when 'Homepage'
 					new_repo = "chapmanu/web-components"
 				else
