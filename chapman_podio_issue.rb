@@ -4,9 +4,13 @@ require 'sinatra/activerecord'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
-require_relative 'chapman_podio_issue'
-require_relative 'db_conn'
+
+# Models & Objects
 require_relative 'id_set'
+
+# Database
+require_relative 'db_conn'
+
 
 class ChapmanPodioIssue
 	def initialize(item_id, issue, client)
@@ -25,6 +29,8 @@ class ChapmanPodioIssue
 	end
 
 	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'}
+	PODIO_MEMBERS = {"Meghan Farrington" => "megagie", "James Kerr" => "jameskerr", "Ben Cole" => "bcole808", "Matt Congel" => "homeofmatt"}
+	GITHUB_MEMBERS = {"megagie" => "Meghan Farrington", "jameskerr" => "James Kerr", "bcole808" => "Ben Cole", "homeofmatt" => "Matt Congel"}
 
 	##### Get all individual fields #####
 	def get_title
@@ -55,6 +61,21 @@ class ChapmanPodioIssue
 		@fields_hash[FIELDS_MAP[:assigned_to]] || ""
 	end
 
+	def map_repo_to_git(repo)
+		case repo
+			when 'Social', 'Inside', 'Events'
+				repo = "chapmanu/inside"
+			when 'Blogs'
+				repo = "chapmanu/issues_testing"#cu-wp-template"
+			when 'Homepage'
+				repo = "chapmanu/web-components"
+			else
+				repo = "chapmanu/git2podio"
+		end
+
+		return repo
+	end
+
 	def create_on_github
 		title       = get_title
 		issue_num   = get_issue_number
@@ -66,16 +87,9 @@ class ChapmanPodioIssue
 		assigned_to = get_assigned_to
 
 		# Determine which repo to send issue to
-		case repo["title"]
-			when 'Social', 'Inside', 'Events'
-				repo = "chapmanu/inside"
-			when 'Blogs'
-				repo = "chapmanu/issues_testing"#cu-wp-template"
-			when 'Homepage'
-				repo = "chapmanu/web-components"
-			else
-				puts "Invalid Podio issue made: #{title}. Will be located in chapmanu/git2podio."
-				repo = "chapmanu/git2podio"
+		repo = map_repo_to_git(repo["title"])
+		if repo == "chapmanu/git2podio"
+			puts "Invalid Podio issue made: #{title}. Will be located in chapmanu/git2podio."
 		end
  		
  		# Create issue in github and give it correct tag
@@ -83,35 +97,32 @@ class ChapmanPodioIssue
 
 		# Label
 		has_label = category["text"] =~ /Bug|Enhancement|Question/
-		labels    = has_label ? category["text"].downcase : nil
+		value    = has_label ? category["text"].downcase : nil
 
 		# Assignee
 		assignee = assigned_to["name"]
 
-		if assignee == "Meghan Farrington"
-			assignee = "megagie"
-		elsif assignee == "James Kerr"
-			assignee = "jameskerr"
-		elsif assignee == "Ben Cole"
-			assignee = "bcole808"
-		elsif assignee == "Matt Congel"
-			assignee = "homeofmatt"
-		else
-			assignee = nil
+		# If name not in hash, leave as nil
+		github_user_name = nil
+		if PODIO_MEMBERS[assignee]
+			github_user_name = PODIO_MEMBERS[assignee]
 		end
 
 		# Create issue with current information
-		git_issue = @git_client.create_issue(repo, title, desc, {:labels => labels, :assignee => assignee})
+		git_issue = @git_client.create_issue(repo, title, desc, {:labels => value, :assignee => github_user_name})
 
 		# Update the Podio item id with the corresponding github issue id
-		Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
+		git_id = git_issue[:number].to_s
+		Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_id}, {:hook => false})
 
 		# Close the issue on github if the status on Podio is set to complete
 		if status["text"] == "Complete"
-			@git_client.close_issue(repo, git_issue[:number])
+			@git_client.close_issue(repo, git_id.to_i)
 		end
 
-		return git_issue[:number].to_s
+		# Return git id and repo
+		return_hash = {id: git_id, repo: repo}
+		return return_hash
 	end
 
 	def update_on_github(label, revision)
@@ -124,20 +135,11 @@ class ChapmanPodioIssue
 			Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => prev_num}, {:hook => false})
 
 		elsif label == "Project"
-			# Check project in podio against prev project
+			# Check project name in podio against prev project name
 			new_repo  = revision[0][:to][0]["value"]["title"]
 
 			# Translate new podio repo name to github repo name
-			case new_repo
-				when 'Social', 'Inside', 'Events'
-					new_repo = "chapmanu/inside"
-				when 'Blogs'
-					new_repo = "chapmanu/issues_testing"#cu-wp-template"
-				when 'Homepage'
-					new_repo = "chapmanu/web-components"
-				else
-					new_repo = "chapmanu/git2podio"
-			end
+			new_repo = map_repo_to_git(new_repo)
 
 			# Determine if issue should be moved
 			if db_row.repo != new_repo
@@ -181,13 +183,11 @@ class ChapmanPodioIssue
 		elsif label == "Category"
 			# Update label
 			category  = get_category
-			labels = Array.new
 
 			has_label = category["text"] =~ /Bug|Enhancement|Question/
 			value = has_label ? category["text"].downcase : nil
-			labels.push(value)
 
-			@git_client.update_issue(db_row.repo, db_row.git_id, :labels => labels)
+			@git_client.update_issue(db_row.repo, db_row.git_id, :labels => [value])
 
 		elsif label == "Status"
 			# Update status
@@ -208,22 +208,15 @@ class ChapmanPodioIssue
 			assigned_to = get_assigned_to
 			assignee = assigned_to["name"]
 
-			# Translate new assignee name to git username
-			if assignee == "Meghan Farrington"
-				assignee = "megagie"
-			elsif assignee == "James Kerr"
-				assignee = "jameskerr"
-			elsif assignee == "Ben Cole"
-				assignee = "bcole808"
-			elsif assignee == "Matt Congel"
-				assignee = "homeofmatt"
-			else
-				assignee = nil
+			# If name not in hash, leave as nil
+			github_user_name = nil
+			if PODIO_MEMBERS[assignee]
+				github_user_name = PODIO_MEMBERS[assignee]
 			end
 
-			@git_client.update_issue(db_row.repo, db_row.git_id, :assignee => assignee)
+			@git_client.update_issue(db_row.repo, db_row.git_id, :assignee => github_user_name)
 		end
 	end
 
-	private :get_title, :get_issue_number, :get_description, :get_category, :get_status, :get_assigned_to
+	private :get_title, :get_issue_number, :get_description, :get_category, :get_status, :get_assigned_to, :map_repository
 end

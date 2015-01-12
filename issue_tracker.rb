@@ -4,18 +4,26 @@ require 'sinatra/activerecord'
 require 'podio'
 require 'octokit'
 require 'pry-byebug'
-require_relative 'chapman_podio_issue'
-require_relative 'db_conn'
-require_relative 'id_set'
 
+# Database 
+require_relative 'db_conn'
+
+# Models
+require_relative 'id_set'
+require_relative 'chapman_podio_issue'
+
+# Initialize Configuration
+CONFIG = YAML.load_file('./config/setup.yml')
+
+# Main Hook Callback
 post '/' do
   
-  #podio login & client object setup
-  Podio.setup(:api_key => 'issues', :api_secret => 'QnVQnkCQkCBBsYiVWcdVpuQS3TlvYaDfc3xacXj9n2bNvULAYCOg4MM9TOV5LGaq')
-  Podio.client.authenticate_with_app('9343326', '8a6c2571599e470d8dbaae867a70ce94')
+  # Podio login & client object setup
+  Podio.setup(:api_key => CONFIG[:podio_api_key], :api_secret => CONFIG[:podio_api_secret])
+  Podio.client.authenticate_with_app(CONFIG[:podio_app_id], CONFIG[:podio_app_token])
 
-  #github login
-  client = Octokit::Client.new :login => 'CharlesChapman', :password => 'M@rket2009'
+  # Github login
+  client = Octokit::Client.new :login => CONFIG[:git_login], :password => CONFIG[:git_password]
 
   case params['type']
 	when 'hook.verify'
@@ -27,22 +35,11 @@ post '/' do
 		issue = Podio::Item.find_basic(params['item_id'])
 		chapman_issue = ChapmanPodioIssue.new(params['item_id'], issue, client)
 		
+		# Database entry parameters
 		pod_id = params['item_id']
-		git_id = chapman_issue.create_on_github
-		git_repo = chapman_issue.get_repo
-		
-		title =  git_repo['title']
-
-		case title
-			when 'Social', 'Inside', 'Events'
-				git_repo = "chapmanu/inside"
-			when 'Blogs'
-				git_repo = "chapmanu/issues_testing"#cu-wp-template"
-			when 'Homepage'
-				git_repo = "chapmanu/web-components"
-			else
-				git_repo = "chapmanu/git2podio"
-		end
+		git_hash = chapman_issue.create_on_github
+		git_id = git_hash[:id]
+		git_repo = git_hash[:repo]
 
 		id_set = IdSet.new(pod_id: pod_id, git_id: git_id, repo: git_repo)
 		id_set.save
