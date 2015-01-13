@@ -86,16 +86,19 @@ post '/github' do
   # Github login
   client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
   
-  case params['repository']['full_name']
-	when 'chapmanu/inside'
+  push = JSON.parse(request.body.read)
+  puts "I got some JSON: #{push.inspect}"
+  
+  #case params['repository']['full_name']
+	#when 'chapmanu/inside'
 
-	when 'chapmanu/issues_testing' #'cu-wp-template'
+	#when 'chapmanu/issues_testing' #'cu-wp-template'
 
-	when 'chapmanu/web-components'
+	#when 'chapmanu/web-components'
 
-	when 'chapmanu/git2podio'
-		
-	else
-		puts "Invalid Github hook: #{params.inspect}"
-	end
+	#when 'chapmanu/git2podio'
+
+	#else
+	#	puts "Invalid Github hook: #{params.inspect}"
+	#end
 end
