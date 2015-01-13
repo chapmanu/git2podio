@@ -16,7 +16,7 @@ require_relative 'chapman_podio_issue'
 CONFIG = YAML.load_file('config/setup.yml')
 
 # Main Hook Callback
-post '/' do
+post '/podio' do
 
   # Podio login & client object setup
   Podio.setup(:api_key => CONFIG["podio_api_key"], :api_secret => CONFIG["podio_api_secret"])
@@ -74,6 +74,28 @@ post '/' do
 		id_set.destroy
 
 	else
-		puts "Invalid hook verify: #{params.inspect}"
+		puts "Invalid Podio hook: #{params.inspect}"
+	end
+end
+
+post '/github' do
+  # Podio login & client object setup
+  Podio.setup(:api_key => CONFIG["podio_api_key"], :api_secret => CONFIG["podio_api_secret"])
+  Podio.client.authenticate_with_app(CONFIG["podio_app_id"], CONFIG["podio_app_token"])
+
+  # Github login
+  client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
+  
+  case params['repository']['full_name']
+	when 'chapmanu/inside'
+
+	when 'chapmanu/issues_testing' #'cu-wp-template'
+
+	when 'chapmanu/web-components'
+
+	when 'chapmanu/git2podio'
+		
+	else
+		puts "Invalid Github hook: #{params.inspect}"
 	end
 end
