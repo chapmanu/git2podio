@@ -90,7 +90,10 @@ post '/github' do
   	#issue = JSON.parse(request.body.read)
 
   	issues_list = client.list_issues("chapmanu/inside")
-  	puts issues_list.inspect
+  	issues_list.each{
+  		|x| puts x[0]
+  	}
+
 
 
 =begin
