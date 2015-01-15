@@ -88,7 +88,7 @@ class ChapmanPodioIssue
 		# Determine which repo to send issue to
 		repo = map_repo_to_git(repo["title"])
 		if repo == "chapmanu/git2podio"
-			puts "Invalid Podio issue made: #{title}. Will be located in chapmanu/git2podio."
+			puts "Invalid/Miscellaneous Podio issue made: #{title}. Will be located in chapmanu/git2podio."
 		end
  		
  		# Create issue in github and give it correct tag

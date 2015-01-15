@@ -97,7 +97,7 @@ class ChapmanGitIssue
 		category = nil
 		if @issue["issue"]["labels"].empty?
 			category = "Issue"
-		else
+		else # Get the most recent label added, if not a bug, enhancement, or question, labels it Issue
 			has_cat = @issue["issue"]["labels"][-1]["name"] =~ /bug|enhancement|question/
 			category = has_cat ? @issue["issue"]["labels"][-1]["name"].capitalize : "Issue"
 		end

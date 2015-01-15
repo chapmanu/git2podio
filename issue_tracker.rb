@@ -80,40 +80,46 @@ post '/podio' do
 end
 
 post '/github' do
-  # Podio login & client object setup
-  Podio.setup(:api_key => CONFIG["podio_api_key"], :api_secret => CONFIG["podio_api_secret"])
-  Podio.client.authenticate_with_app(CONFIG["podio_app_id"], CONFIG["podio_app_token"])
+  	# Podio login & client object setup
+  	Podio.setup(:api_key => CONFIG["podio_api_key"], :api_secret => CONFIG["podio_api_secret"])
+  	Podio.client.authenticate_with_app(CONFIG["podio_app_id"], CONFIG["podio_app_token"])
 
-  # Github login
-  client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
+  	# Github login
+  	client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
   
-  issue = JSON.parse(request.body.read)
+  	#issue = JSON.parse(request.body.read)
 
-  # Prevent infinite loop by checking if CharlesChapman made change to Github, if so, it was a Podio change initially
-  if issue["sender"]["login"] != "CharlesChapman"
-	  info = issue["issue"]
-	  repo = issue["repository"]["full_name"]
-	  git_id = issue["issue"]["number"]
-	  action = issue["action"]
-	  puts "#{repo} was #{action}."
+  	issues_list = client.list_issues("chapmanu/inside")
+  	puts issues_list.inspect
 
-	  chapman_issue = ChapmanGitIssue.new(client, issue, repo, git_id, CONFIG["podio_app_id"])
 
-	  case action
-		when 'opened', 'reopened'
-			chapman_issue.open_issue
+=begin
+  	# Prevent infinite loop by checking if CharlesChapman made change to Github. If so, it was a Podio change initially
+  	if issue["sender"]["login"] != "CharlesChapman"
+	  	info = issue["issue"]
+	  	repo = issue["repository"]["full_name"]
+	  	git_id = issue["issue"]["number"]
+	  	action = issue["action"]
+	  	puts "#{repo} was #{action}."
 
-		when 'closed'
-			chapman_issue.close_issue
+	  	chapman_issue = ChapmanGitIssue.new(client, issue, repo, git_id, CONFIG["podio_app_id"])
 
-		when 'labeled', 'unlabeled'
-			chapman_issue.label_issue
+	  	case action
+			when 'opened', 'reopened'
+				chapman_issue.open_issue
 
-		when 'assigned'
-			chapman_issue.assign_issue
+			when 'closed'
+				chapman_issue.close_issue
 
-		else
-			puts "Invalid Github hook: #{info}"
+			when 'labeled', 'unlabeled'
+				chapman_issue.label_issue
+
+			when 'assigned'
+				chapman_issue.assign_issue
+
+			else
+				puts "Invalid Github hook: #{info}"
 		end
 	end
+=end
 end
