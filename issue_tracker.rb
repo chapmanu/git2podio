@@ -91,7 +91,8 @@ post '/github' do
 
   	issues_list = client.list_issues("chapmanu/inside")
   	issues_list.each{
-  		|x| puts x[0]
+  		|x| puts x[0]["url"]
+  		|x| puts x[0][:url]
   	}
 
 
