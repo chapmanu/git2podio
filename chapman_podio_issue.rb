@@ -30,7 +30,6 @@ class ChapmanPodioIssue
 
 	FIELDS_MAP = {title: '72675682', issue_number: '72678301', description: '72676401', project: '72676406', category: '80284837', status: '72676409', assigned_to: '72676405'}
 	PODIO_MEMBERS = {"Meghan Farrington" => "megagie", "James Kerr" => "jameskerr", "Ben Cole" => "bcole808", "Matt Congel" => "homeofmatt"}
-	GITHUB_MEMBERS = {"megagie" => "Meghan Farrington", "jameskerr" => "James Kerr", "bcole808" => "Ben Cole", "homeofmatt" => "Matt Congel"}
 
 	##### Get all individual fields #####
 	def get_title
@@ -97,7 +96,7 @@ class ChapmanPodioIssue
 
 		# Label
 		has_label = category["text"] =~ /Bug|Enhancement|Question/
-		value    = has_label ? category["text"].downcase : nil
+		value     = has_label ? category["text"].downcase : nil
 
 		# Assignee
 		assignee = assigned_to["name"]
@@ -127,7 +126,7 @@ class ChapmanPodioIssue
 
 	def update_on_github(label, revision)
 		# Grab database info on issue
-		db_row = IdSet.where(pod_id: @item_id).first
+		db_record = IdSet.where(pod_id: @item_id).first
 
 		if label == "Issue Number"
 			# If user tries to change Issue Number, we set it back.
@@ -142,9 +141,9 @@ class ChapmanPodioIssue
 			new_repo = map_repo_to_git(new_repo)
 
 			# Determine if issue should be moved
-			if db_row.repo != new_repo
+			if db_record.repo != new_repo
 				# Get github issue
-				old_git_issue = @git_client.issue(db_row.repo, db_row.git_id)
+				old_git_issue = @git_client.issue(db_record.repo, db_record.git_id)
 
 				# Get information from old issue
 				title    = old_git_issue[:title]
@@ -154,8 +153,8 @@ class ChapmanPodioIssue
 				assignee = old_git_issue[:assignee][:login]
 
 				# Add comment to old issue on github and close issue
-				@git_client.add_comment(db_row.repo, db_row.git_id, "Issue moved to: #{new_repo}")
-				@git_client.close_issue(db_row.repo, db_row.git_id)
+				@git_client.add_comment(db_record.repo, db_record.git_id, "Issue moved to: #{new_repo}")
+				@git_client.close_issue(db_record.repo, db_record.git_id)
 
 				# Create new issue in new repository & close if prev issue was closed
 				git_issue = @git_client.create_issue(new_repo, title, desc, {:labels => label, :assignee => assignee})
@@ -167,9 +166,9 @@ class ChapmanPodioIssue
 				Podio::ItemField.update(@item_id, FIELDS_MAP[:issue_number], {:value => git_issue[:number].to_s}, {:hook => false})
 
 				# Update database 
-				db_row.repo   = new_repo
-				db_row.git_id = git_issue[:number]
-				db_row.save
+				db_record.repo   = new_repo
+				db_record.git_id = git_issue[:number]
+				db_record.save
 			end
 
 		elsif label == "Issue" || label == "Description"
@@ -178,7 +177,7 @@ class ChapmanPodioIssue
 			desc  = get_description
 			desc  = desc[3..-5]
 
-			@git_client.update_issue(db_row.repo, db_row.git_id, title, desc)
+			@git_client.update_issue(db_record.repo, db_record.git_id, title, desc)
 
 		elsif label == "Category"
 			# Update label
@@ -187,20 +186,20 @@ class ChapmanPodioIssue
 			has_label = category["text"] =~ /Bug|Enhancement|Question/
 			value = has_label ? category["text"].downcase : nil
 
-			@git_client.update_issue(db_row.repo, db_row.git_id, :labels => [value])
+			@git_client.update_issue(db_record.repo, db_record.git_id, :labels => [value])
 
 		elsif label == "Status"
 			# Update status
 			status = get_status
-			git_issue = @git_client.issue(db_row.repo, db_row.git_id)
-			old_git_issue = @git_client.issue(db_row.repo, db_row.git_id)
+			git_issue = @git_client.issue(db_record.repo, db_record.git_id)
+			old_git_issue = @git_client.issue(db_record.repo, db_record.git_id)
 			prev_status   = old_git_issue[:state]
 
 			# Because 'Backlog' and 'Current' translate to 'open' on github, a switch between the two is ignored
 			if status["text"] != "Complete" && prev_status != "open"
-				@git_client.reopen_issue(db_row.repo, db_row.git_id)
+				@git_client.reopen_issue(db_record.repo, db_record.git_id)
 			elsif status["text"] == "Complete" && prev_status == "open"
-				@git_client.close_issue(db_row.repo, db_row.git_id)
+				@git_client.close_issue(db_record.repo, db_record.git_id)
 			end
 
 		elsif label == "Assigned To"
@@ -214,7 +213,7 @@ class ChapmanPodioIssue
 				github_user_name = PODIO_MEMBERS[assignee]
 			end
 
-			@git_client.update_issue(db_row.repo, db_row.git_id, :assignee => github_user_name)
+			@git_client.update_issue(db_record.repo, db_record.git_id, :assignee => github_user_name)
 		end
 	end
 

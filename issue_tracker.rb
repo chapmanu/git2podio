@@ -11,6 +11,7 @@ require_relative 'db_conn'
 # Models
 require_relative 'id_set'
 require_relative 'chapman_podio_issue'
+require_relative 'chapman_git_issue'
 
 # Initialize Configuration
 CONFIG = YAML.load_file('config/setup.yml')
@@ -86,19 +87,33 @@ post '/github' do
   # Github login
   client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
   
-  push = JSON.parse(request.body.read)
-  puts "I got some JSON: #{push.inspect}"
-  
-  #case params['repository']['full_name']
-	#when 'chapmanu/inside'
+  issue = JSON.parse(request.body.read)
 
-	#when 'chapmanu/issues_testing' #'cu-wp-template'
+  # Prevent infinite loop by checking if CharlesChapman made change to Github, if so, it was a Podio change initially
+  if issue["sender"]["login"] != "CharlesChapman"
+	  info = issue["issue"]
+	  repo = issue["repository"]["full_name"]
+	  git_id = issue["issue"]["number"]
+	  action = issue["action"]
+	  puts "#{repo} was #{action}."
 
-	#when 'chapmanu/web-components'
+	  chapman_issue = ChapmanGitIssue.new(client, issue, repo, git_id, CONFIG["podio_app_id"])
 
-	#when 'chapmanu/git2podio'
+	  case action
+		when 'opened', 'reopened'
+			chapman_issue.open_issue
 
-	#else
-	#	puts "Invalid Github hook: #{params.inspect}"
-	#end
+		when 'closed'
+			chapman_issue.close_issue
+
+		when 'labeled', 'unlabeled'
+			chapman_issue.label_issue
+
+		when 'assigned'
+			chapman_issue.assign_issue
+
+		else
+			puts "Invalid Github hook: #{info}"
+		end
+	end
 end
