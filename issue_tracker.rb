@@ -90,10 +90,8 @@ post '/github' do
   	#issue = JSON.parse(request.body.read)
 
   	issues_list = client.list_issues("chapmanu/inside")
-  	issues_list.each{
-  		|x| puts x[0]["url"]
-  		|x| puts x[0][:url]
-  	}
+  	issues_list.each{ |x| puts x[0]["url"] }
+  	issues_list.each{ |x| puts x[0][:url] }
 
 
 
