@@ -29,7 +29,7 @@ class ChapmanGitIssue
 		case repo
 			when 'chapmanu/inside'
 				repo_id = 223897464 # Project id for Inside
-			when 'chapmanu/issues_testing' #cu-wp-template"
+			when 'chapmanu/cu-wp-template'
 				repo_id = 223897311 # Project id for Blogs
 			when 'chapmanu/web-components'
 				repo_id = 223898171 # Project id for Homepage
