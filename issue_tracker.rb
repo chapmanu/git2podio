@@ -87,14 +87,8 @@ post '/github' do
   	# Github login
   	client = Octokit::Client.new :login => CONFIG["git_login"], :password => CONFIG["git_password"]
   
-  	#issue = JSON.parse(request.body.read)
+  	issue = JSON.parse(request.body.read)
 
-  	issues_list = client.list_issues("chapmanu/inside")
-  	issues_list.each{ |x| puts x }
-
-
-
-=begin
   	# Prevent infinite loop by checking if CharlesChapman made change to Github. If so, it was a Podio change initially
   	if issue["sender"]["login"] != "CharlesChapman"
 	  	info = issue["issue"]
@@ -122,5 +116,4 @@ post '/github' do
 				puts "Invalid Github hook: #{info}"
 		end
 	end
-=end
 end
