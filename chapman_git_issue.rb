@@ -55,7 +55,7 @@ class ChapmanGitIssue
 			description = @issue["issue"]["body"]
 			project     = map_repo_to_podio(@repo)
 			status      = "Current"
-			assigned_to = @issue["issue"]["assignee"]["login"]
+			assigned_to = nil
 
 			# If there are no labels present on Github
 			category = nil
@@ -68,7 +68,8 @@ class ChapmanGitIssue
 			
 			# If assignee name is not in hash, leave as nil
 			podio_user_name = nil
-			if GITHUB_MEMBERS[assigned_to]
+			if @issue["issue"]["assignee"]["login"].present?
+				assigned_to = @issue["issue"]["assignee"]["login"]
 				podio_user_name = GITHUB_MEMBERS[assigned_to]
 			end
 
