@@ -75,7 +75,7 @@ class ChapmanGitIssue
 			# If issue is sent to Miscellaneous, put in the github repo it came from
 			if project == 249860249
 				repo_name = @repo
-				description = "<p>#{description}\nIssue arrived from: #{repo_name}</p>"
+				description = "<p>#{description} -----Issue arrived from: #{repo_name}</p>"
 			else
 				description = "<p>#{description}</p>"
 			end
