@@ -32,9 +32,9 @@ class ChapmanGitIssue
 			when 'chapmanu/cu-wp-customization'
 				repo_id = 223897311 # Project id for Blogs
 			when 'chapmanu/web-components'
-				repo_id = 249847911 # Project id for Homepage
+				repo_id = 249847911 # Project id for Web Components
 			else
-				repo_id = 225939916 # Project id for Miscellaneous
+				repo_id = 249860249 # Project id for Miscellaneous
 		end
 
 		return repo_id
