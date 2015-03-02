@@ -53,7 +53,6 @@ class ChapmanGitIssue
 			# Get all values and parse them into Podio-readable values
 			title       = @issue["issue"]["title"]
 			description = @issue["issue"]["body"]
-			description = "<p>#{description}</p>"
 			project     = map_repo_to_podio(@repo)
 			status      = "Current"
 			assigned_to = @issue["issue"]["assignee"]["login"]
@@ -71,6 +70,14 @@ class ChapmanGitIssue
 			podio_user_name = nil
 			if GITHUB_MEMBERS[assigned_to]
 				podio_user_name = GITHUB_MEMBERS[assigned_to]
+			end
+
+			# If issue is sent to Miscellaneous, put in the github repo it came from
+			if project == "Miscellaneous"
+				repo_name = @repo
+				description = "<p>#{description}\nIssue arrived from: #{repo_name}</p>"
+			else
+				description = "<p>#{description}</p>"
 			end
 
 			# Create issue on Podio & get new item id
