@@ -57,6 +57,8 @@ class ChapmanGitIssue
 			status      = "Current"
 			assigned_to = nil
 
+			puts @issue["issue"].inspect
+
 			# If there are no labels present on Github
 			category = nil
 			if @issue["issue"]["labels"].empty?
