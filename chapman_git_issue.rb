@@ -70,7 +70,7 @@ class ChapmanGitIssue
 			
 			# If assignee name is not in hash, leave as nil
 			podio_user_name = nil
-			if @issue["issue"]["assignee"].empty?
+			if @issue["issue"]["assignee"] == nil
 				podio_user_name = nil
 			else
 				assigned_to = @issue["issue"]["assignee"]["login"]
