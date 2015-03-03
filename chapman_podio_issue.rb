@@ -65,7 +65,7 @@ class ChapmanPodioIssue
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
 			when 'Blogs'
-				repo = "chapmanu/cu-wp-customization"
+				repo = "chapmanu/cu-blogs"
 			when 'Homepage', 'Web Components'
 				repo = "chapmanu/web-components"
 			else
