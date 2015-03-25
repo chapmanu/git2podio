@@ -65,7 +65,7 @@ class ChapmanPodioIssue
 			when 'Social', 'Inside', 'Events'
 				repo = "chapmanu/inside"
 			when 'Blogs'
-				repo = "chapmanu/cu-blogs"
+				repo = "chapmanu/blogs"
 			when 'Homepage', 'Web Components'
 				repo = "chapmanu/web-components"
 			else
