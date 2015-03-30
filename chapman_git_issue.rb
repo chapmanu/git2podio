@@ -37,6 +37,8 @@ class ChapmanGitIssue
 				repo_id = 249860249 # Project id for Miscellaneous
 		end
 
+		puts "Repo: " + repo
+
 		return repo_id
 	end
 
