@@ -65,11 +65,8 @@ class ChapmanGitIssue
 			if @issue["issue"]["labels"].empty?
 				category = "Issue"
 			else
-				has_cat = @issue["issue"]["labels"][-1]["name"] =~ /bug|enhancement|question/
-				puts "=============================="
-				puts has_cat
+				has_cat = @issue["issue"]["labels"][-1]["name"] =~ /bug|enhancement|question|Bug|Enhancement|Question/
 				category = has_cat ? @issue["issue"]["labels"][-1]["name"].capitalize : "Issue"
-				puts category
 			end
 			
 			# If assignee name is not in hash, leave as nil
