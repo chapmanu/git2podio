@@ -11,7 +11,7 @@ require_relative 'id_set'
 # Database
 require_relative 'db_conn'
 
-
+##### From Podio to Github #####
 class ChapmanPodioIssue
 	def initialize(item_id, issue, client)
 		@item_id = item_id

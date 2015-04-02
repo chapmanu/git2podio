@@ -11,6 +11,7 @@ require_relative 'id_set'
 # Database
 require_relative 'db_conn'
 
+##### From Github to Podio #####
 class ChapmanGitIssue
 	def initialize(client, issue, repo, git_id, app_id)
 		@git_client = client
@@ -65,7 +66,10 @@ class ChapmanGitIssue
 				category = "Issue"
 			else
 				has_cat = @issue["issue"]["labels"][-1]["name"] =~ /bug|enhancement|question/
+				puts "=============================="
+				puts has_cat
 				category = has_cat ? @issue["issue"]["labels"][-1]["name"].capitalize : "Issue"
+				puts category
 			end
 			
 			# If assignee name is not in hash, leave as nil
